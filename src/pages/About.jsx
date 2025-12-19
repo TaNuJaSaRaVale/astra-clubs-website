@@ -1,4 +1,4 @@
-nconst About = () => {
+const About = () => {
   return (
     <section className="space-y-6">
       <header>
