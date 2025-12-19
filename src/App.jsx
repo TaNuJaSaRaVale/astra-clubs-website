@@ -1,4 +1,3 @@
-import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./pages/Home";
@@ -10,13 +9,11 @@ import Contact from "./pages/Contact";
 const App = () => {
   return (
     <MainLayout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <Home />
+      <About />
+      <Events />
+      <Team />
+      <Contact />
     </MainLayout>
   );
 };
