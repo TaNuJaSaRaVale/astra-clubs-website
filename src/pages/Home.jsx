@@ -1,4 +1,4 @@
-const Home = () => {
+export default function Home() {
   return (
     <section className="space-y-28">
 
@@ -123,6 +123,4 @@ const Home = () => {
 
     </section>
   );
-};
-
-export default Home;
+}
