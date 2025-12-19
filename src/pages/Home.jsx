@@ -116,9 +116,7 @@ const Home = () => {
           </a>
         </div>
 
-        <p className="mt-6 text-sm text-purple-200">
-          📧 wce.astra@gmail.com
-        </p>
+    
       </div>
 
     </section>

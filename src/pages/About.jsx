@@ -1,217 +1,232 @@
 import hodPhoto from "../assets/hod-vivek-waghmare.jpg";
+import SwipeRow from "../components/SwipeRow";
 
-const About = () => {
+export default function About() {
   return (
-    <section className="space-y-20">
+    <section
+      id="about"
+      className="max-w-7xl mx-auto px-4 space-y-32"
+    >
 
-      {/* ABOUT WCE */}
-      <div className="space-y-6">
-        <h2 className="text-4xl font-bold text-slate-900">
-          About Walchand College of Engineering
-        </h2>
-
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
-          Established in 1947, Walchand College of Engineering (WCE), Sangli,
-          stands as a beacon of excellence in engineering education. As a
-          premier autonomous institution affiliated with Shivaji University,
-          WCE seamlessly blends tradition with innovation to create a holistic
-          learning environment.
-        </p>
-
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
-          With a strong focus on academic rigor, cutting-edge research,
-          state-of-the-art facilities, and robust industry collaborations,
-          WCE empowers students to excel academically, develop critical skills,
-          and contribute meaningfully to a rapidly evolving global landscape.
-        </p>
-
-        <ul className="grid gap-3 sm:grid-cols-2 list-disc pl-6 text-slate-700">
-          <li>Over 75 years of excellence in engineering education</li>
-          <li>Autonomous institution affiliated with Shivaji University</li>
-          <li>Accredited by NBA and NAAC with top rankings</li>
-          <li>State-of-the-art labs, libraries, and research facilities</li>
-          <li>Strong industry collaborations and placement opportunities</li>
-        </ul>
-
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
-          Beyond academics, life at WCE is vibrant, inclusive, and full of
-          opportunities for personal and professional growth, offering a
-          perfect balance of academics, culture, and extracurricular
-          activities.
+      {/* ================= PAGE INTRO ================= */}
+      <div className="text-center space-y-6">
+        <h1 className="text-5xl font-extrabold text-slate-900">
+          About
+        </h1>
+        <p className="max-w-3xl mx-auto text-lg text-slate-600">
+          Walchand College of Engineering · Department of Artificial Intelligence
+          & Machine Learning · ASTRA Club
         </p>
       </div>
 
-      {/* ABOUT DEPARTMENT */}
-      <div className="space-y-6">
+      {/* ================= ABOUT WCE ================= */}
+      <div className="space-y-10">
+        <h2 className="text-4xl font-bold text-slate-900">
+          Walchand College of Engineering, Sangli
+        </h2>
+
+        <div className="grid gap-8 md:grid-cols-2">
+          <p className="text-slate-700 leading-relaxed">
+            Established in 1947, Walchand College of Engineering (WCE), Sangli,
+            stands as a beacon of excellence in engineering education. As a
+            premier autonomous institution affiliated with Shivaji University,
+            WCE seamlessly blends tradition with innovation to create a holistic
+            learning environment.
+          </p>
+
+          <p className="text-slate-700 leading-relaxed">
+            With a strong focus on academic rigor, cutting-edge research,
+            state-of-the-art facilities, and robust industry collaborations,
+            WCE empowers students to excel academically, develop critical
+            skills, and contribute meaningfully to a rapidly evolving global
+            landscape.
+          </p>
+        </div>
+
+        {/* WCE HIGHLIGHTS – SWIPE */}
+        <SwipeRow>
+          {[
+            "Over 75 years of excellence in engineering education",
+            "Autonomous institution affiliated with Shivaji University",
+            "Accredited by NBA and NAAC with top rankings",
+            "State-of-the-art laboratories and research facilities",
+            "Strong industry collaborations and placement ecosystem",
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="
+                min-w-[300px]
+                bg-white rounded-2xl p-6
+                border shadow-sm
+                snap-center
+                hover:-translate-y-1 hover:shadow-md
+                transition
+              "
+            >
+              <p className="font-medium text-slate-800">
+                {item}
+              </p>
+            </div>
+          ))}
+        </SwipeRow>
+
+        <p className="text-slate-700 leading-relaxed max-w-5xl">
+          Beyond academics, life at WCE is vibrant, inclusive, and full of
+          opportunities for personal and professional growth, ensuring a
+          holistic student experience.
+        </p>
+      </div>
+
+      {/* ================= ABOUT DEPARTMENT ================= */}
+      <div className="space-y-10">
         <h2 className="text-4xl font-bold text-slate-900">
           Department of Artificial Intelligence & Machine Learning
         </h2>
 
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
-          Established in 2024, the Department of Artificial Intelligence and
-          Machine Learning at Walchand College of Engineering has rapidly
-          emerged as a center of excellence in AI-driven education, research,
-          and innovation.
-        </p>
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="bg-slate-50 p-8 rounded-2xl space-y-4">
+            <h3 className="text-2xl font-semibold">
+              Academic Excellence
+            </h3>
+            <p className="text-slate-700">
+              Established in 2024, the department has consistently upheld its
+              commitment to strong academic rigor, blending foundational
+              knowledge with cutting-edge AI and ML technologies through an
+              industry-aligned curriculum.
+            </p>
+          </div>
+
+          <div className="bg-slate-50 p-8 rounded-2xl space-y-4">
+            <h3 className="text-2xl font-semibold">
+              Research & Industry Interface
+            </h3>
+            <p className="text-slate-700">
+              Faculty and students actively contribute through publications,
+              conferences, and collaborative projects with industry leaders,
+              bridging the gap between academia and professional practice.
+            </p>
+          </div>
+        </div>
 
         <p className="text-slate-700 leading-relaxed max-w-5xl">
-          The department blends strong foundational knowledge with
-          cutting-edge technologies, preparing students to thrive in a
-          rapidly evolving technological landscape. Its curriculum is
-          industry-aligned, research-oriented, and globally relevant.
-        </p>
-
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
-          Faculty and students actively contribute to research through reputed
-          publications, conferences, and collaborative industry projects.
-          Strong industry ties enable internships, placements, and real-world
-          exposure.
+          The department boasts modern laboratories, high-performance computing
+          facilities, advanced software tools, and strong industry partnerships
+          for internships, placements, and real-world exposure.
         </p>
       </div>
 
-      {/* HOD SECTION */}
-<div className="space-y-8">
-  <h2 className="text-4xl font-bold text-slate-900">
-    Head of the Department
-  </h2>
+      {/* ================= HOD ================= */}
+      <div className="bg-slate-50 rounded-3xl p-12 space-y-10">
+        <h2 className="text-4xl font-bold text-center">
+          Head of the Department
+        </h2>
 
-  <div className="grid gap-8 md:grid-cols-3 items-start">
-    
-    {/* Photo Placeholder */}
-    <div className="flex justify-center">
-      <img
-  src={hodPhoto}
-  alt="Dr. Vivek Nivrutirao Waghmare - HOD AIML"
-  className="h-48 w-48 rounded-2xl object-cover shadow-md"
-/>
+        <div className="grid gap-10 md:grid-cols-3 items-center">
+          <div className="flex justify-center">
+            <img
+              src={hodPhoto}
+              alt="Dr. Vivek Nivrutirao Waghmare"
+              className="h-60 w-100 rounded-2xl object-cover shadow-md"
+            />
+          </div>
 
-    </div>
+          <div className="md:col-span-2 space-y-4">
+            <h3 className="text-2xl font-semibold">
+              Dr. Vivek Nivrutirao Waghmare
+            </h3>
+            <p className="text-slate-600">
+              Professor & Head, AIML Department<br />
+              Walchand College of Engineering, Sangli
+            </p>
+            <p className="text-slate-700 leading-relaxed">
+              With over 15 years of teaching and research experience, Dr.
+              Waghmare has published numerous research papers, holds patents,
+              received prestigious awards, and provides strong academic and
+              research leadership to the department.
+            </p>
+          </div>
+        </div>
+      </div>
 
-    {/* HOD Content */}
-    <div className="md:col-span-2 space-y-4">
-      <h3 className="text-2xl font-semibold text-slate-900">
-        Dr. Vivek Nivrutirao Waghmare
-      </h3>
-
-      <p className="text-slate-600">
-        Professor & Head, Department of Artificial Intelligence and Machine Learning  
-        <br />
-        Walchand College of Engineering, Sangli
-      </p>
-
-      <p className="text-slate-700 leading-relaxed">
-        Dr. Vivek Nivrutirao Waghmare is a highly respected academician and
-        researcher with over 15 years of teaching and research experience. He
-        leads the Department of Artificial Intelligence and Machine Learning at
-        WCE with a strong vision for academic excellence, innovation, and
-        ethical technological advancement.
-      </p>
-
-      <p className="text-slate-700 leading-relaxed">
-        He has published more than 33 research papers in reputed international
-        journals and conferences and holds 6 patents. He has received multiple
-        research grants from government funding agencies and actively
-        contributes to national and international research initiatives.
-      </p>
-
-      <p className="text-slate-700 leading-relaxed">
-        His research interests include Computational Science and High-Performance
-        Computing. He is also a recipient of the <strong>Excellence in Teaching
-        Award</strong> and is widely admired for his academic leadership and
-        mentorship.
-      </p>
-    </div>
-
-  </div>
-</div>
-
-
-      {/* OBJECTIVES */}
-      <div className="space-y-6">
-        <h3 className="text-3xl font-semibold text-slate-900">
+      {/* ================= OBJECTIVES – SWIPE ================= */}
+      <div className="space-y-10">
+        <h2 className="text-4xl font-bold text-center">
           Department Objectives
-        </h3>
+        </h2>
 
-        <ul className="space-y-3 list-disc pl-6 text-slate-700 max-w-5xl">
-          <li>Deliver industry-relevant, high-quality AI & ML education</li>
-          <li>Promote research, innovation, and emerging technologies</li>
-          <li>Develop competent, industry-ready professionals</li>
-          <li>Encourage lifelong learning and technological adaptability</li>
-          <li>Strengthen industry–academia collaboration</li>
-          <li>Foster entrepreneurship and innovation-driven leadership</li>
-          <li>Enable socially responsible and ethical AI solutions</li>
-          <li>Enhance global exposure and professional competence</li>
-          <li>Sustain academic excellence through modern pedagogy</li>
-          <li>Empower alumni engagement for mutual growth</li>
-        </ul>
+        <SwipeRow>
+          {[
+            "Deliver quality and industry-relevant education",
+            "Promote research, innovation, and emerging technologies",
+            "Develop competent, industry-ready professionals",
+            "Encourage lifelong learning and adaptability",
+            "Strengthen industry–academia collaboration",
+            "Foster entrepreneurship and leadership",
+            "Enable socially responsible AI solutions",
+            "Enhance global competence and exposure",
+            "Sustain academic excellence through modern pedagogy",
+            "Empower alumni engagement and mentorship",
+          ].map((obj, i) => (
+            <div
+              key={i}
+              className="
+                min-w-[300px]
+                bg-white p-6 rounded-2xl
+                border shadow-sm
+                snap-center
+              "
+            >
+              <p className="font-medium text-slate-700">
+                {obj}
+              </p>
+            </div>
+          ))}
+        </SwipeRow>
       </div>
 
-      {/* VISION & MISSION */}
-      <div className="space-y-6">
-        <h3 className="text-3xl font-semibold text-slate-900">
+      {/* ================= VISION & MISSION ================= */}
+      <div className="space-y-8 max-w-5xl">
+        <h2 className="text-4xl font-bold">
           Vision & Mission
-        </h3>
+        </h2>
 
-        <p className="text-slate-700 max-w-5xl">
+        <p className="text-slate-700">
           <strong>Vision:</strong> To be a center of excellence in Artificial
-          Intelligence and Machine Learning education, research, and
-          innovation, nurturing globally competent and ethical professionals.
+          Intelligence and Machine Learning education, research, and innovation,
+          nurturing globally competent and ethical professionals.
         </p>
 
-        <ul className="space-y-2 list-disc pl-6 text-slate-700 max-w-5xl">
+        <ul className="list-disc pl-6 space-y-2 text-slate-700">
           <li>Adopting vibrant curricula and teaching practices</li>
-          <li>Providing strong industry exposure and collaboration</li>
+          <li>Providing industry exposure and interdisciplinary collaboration</li>
           <li>Empowering critical thinking and problem-solving skills</li>
           <li>Inculcating lifelong learning and ethical responsibility</li>
         </ul>
       </div>
 
-      {/* ABOUT ASTRA */}
-      <div className="space-y-6">
-        <h2 className="text-4xl font-bold text-slate-900">
-          About ASTRA – Departmental Club
+      {/* ================= ASTRA CLUB ================= */}
+      <div className="space-y-6 max-w-5xl">
+        <h2 className="text-4xl font-bold">
+          ASTRA – Departmental Club
         </h2>
 
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
+        <p className="text-slate-700 leading-relaxed">
           ASTRA (Association of Students for Theoretical Reasoning in AI),
           established in 2025, is the official departmental club of the
           Artificial Intelligence & Machine Learning Department at WCE.
         </p>
 
-        <p className="text-slate-700 leading-relaxed max-w-5xl">
-          Founded by students and for students, ASTRA aims to foster
-          collaborative learning, critical thinking, and continuous growth in
-          Artificial Intelligence and Machine Learning through peer-to-peer
-          engagement.
-        </p>
-      </div>
-
-      {/* CLUB VISION / MISSION / MOTTO */}
-      <div className="space-y-6">
-        <h3 className="text-3xl font-semibold text-slate-900">
-          ASTRA Vision, Mission & Motto
-        </h3>
-
-        <p className="text-slate-700 max-w-5xl">
-          <strong>Vision:</strong> To build a strong learning community that
-          excels in theoretical reasoning, practical understanding, and ethical
-          application of AI & ML.
+        <p className="text-slate-700 leading-relaxed">
+          The club promotes collaborative learning, peer-to-peer engagement,
+          strong theoretical foundations, and hands-on application of AI and ML
+          concepts through workshops, discussions, projects, and study groups.
         </p>
 
-        <ul className="space-y-2 list-disc pl-6 text-slate-700 max-w-5xl">
-          <li>Promote collaborative and peer-driven learning</li>
-          <li>Strengthen theoretical and mathematical foundations</li>
-          <li>Encourage hands-on projects and research orientation</li>
-          <li>Bridge academia, industry, and emerging AI technologies</li>
-        </ul>
-
-        <p className="text-lg font-semibold text-purple-600">
+        <p className="font-semibold text-slate-800">
           Motto: “Think Deep. Learn Together. Build Intelligent Futures.”
         </p>
       </div>
 
     </section>
   );
-};
-
-export default About;
+}

@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Hide scrollbar for swipe sections */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 /* Global base styles */
 html, body {
   @apply bg-[#f8f6ff] text-slate-800;
