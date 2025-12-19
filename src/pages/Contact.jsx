@@ -1,40 +1,15 @@
-const Contact = () => {
+export default function Contact() {
   return (
-    <section className="space-y-6 max-w-2xl">
-      <header>
-        <h1 className="text-4xl font-bold text-slate-900">
-          Contact Us
-        </h1>
-        <p className="mt-2 text-slate-600">
-          Reach out to ASTRA for collaborations or queries.
-        </p>
-      </header>
+    <section id="contact" style={{ padding: "100px 60px" }}>
+      <h1>Contact Us</h1>
 
-      <form className="space-y-4">
-        <input
-          type="text"
-          placeholder="Your Name"
-          className="w-full rounded-lg border px-4 py-2"
-        />
-        <input
-          type="email"
-          placeholder="Your Email"
-          className="w-full rounded-lg border px-4 py-2"
-        />
-        <textarea
-          placeholder="Your Message"
-          rows="4"
-          className="w-full rounded-lg border px-4 py-2"
-        />
-        <button
-          type="submit"
-          className="rounded-lg bg-purple-600 px-6 py-2 text-white hover:bg-purple-700"
-        >
-          Send Message
-        </button>
-      </form>
+      <p>
+        For queries, collaborations, or club activities, reach out to us.
+      </p>
+
+      <p><strong>Email:</strong> wce.astra@gmail.com</p>
+      <p><strong>Department:</strong> Artificial Intelligence & Machine Learning</p>
+      <p><strong>Institution:</strong> Walchand College of Engineering, Sangli</p>
     </section>
   );
-};
-
-export default Contact;
+}

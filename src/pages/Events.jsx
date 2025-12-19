@@ -1,29 +1,29 @@
-const Events = () => {
+export default function Events() {
   return (
-    <section className="space-y-6">
-      <header>
-        <h1 className="text-4xl font-bold text-slate-900">
-          Events
-        </h1>
-        <p className="mt-2 text-slate-600">
-          Workshops, hackathons, talks, and activities conducted by ASTRA.
-        </p>
-      </header>
+    <section id="events" style={{ padding: "100px 60px" }}>
+      <h1>Events</h1>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Event Card Placeholder */}
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
-          <h3 className="font-semibold text-lg">Event Title</h3>
-          <p className="text-sm text-slate-600 mt-2">
-            Short description of the event.
-          </p>
-          <span className="text-xs text-purple-600 mt-3 inline-block">
-            Date · Mode
-          </span>
-        </div>
-      </div>
+      <h3>GIM 2K25 – General Interest Meet</h3>
+      <p>
+        The inaugural event of ASTRA introducing students to the club’s vision,
+        objectives, and learning culture.
+      </p>
+
+      <h3 style={{ marginTop: "20px" }}>
+        Intra-Club ML Project Development (Planned)
+      </h3>
+      <p>
+        A collaborative ML project event focusing on hands-on development and
+        teamwork.
+      </p>
+
+      <h3 style={{ marginTop: "20px" }}>
+        ASTRA ML Services & Learning Initiative (Planned)
+      </h3>
+      <p>
+        An open initiative offering mentorship and ML learning across all
+        departments.
+      </p>
     </section>
   );
-};
-
-export default Events;
+}

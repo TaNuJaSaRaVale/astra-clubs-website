@@ -1,25 +1,22 @@
-const About = () => {
+export default function About() {
   return (
-    <section className="space-y-6">
-      <header>
-        <h1 className="text-4xl font-bold text-slate-900">
-          About ASTRA
-        </h1>
-        <p className="mt-2 text-slate-600 max-w-2xl">
-          Brief introduction about the club will go here.
-        </p>
-      </header>
+    <section id="about" style={{ padding: "100px 60px" }}>
+      <h1>About Us</h1>
 
-      <div className="space-y-4">
-        <p className="text-slate-700">
-          This section will describe the mission, vision, and purpose of ASTRA.
-        </p>
-        <p className="text-slate-700">
-          You can add history, goals, and impact here.
-        </p>
-      </div>
+      <h2>Walchand College of Engineering</h2>
+      <p>
+        Established in 1947, Walchand College of Engineering, Sangli, is a premier
+        autonomous institution affiliated with Shivaji University, known for
+        academic excellence, innovation, and industry collaboration.
+      </p>
+
+      <h2 style={{ marginTop: "30px" }}>
+        Department of Artificial Intelligence & Machine Learning
+      </h2>
+      <p>
+        Established in 2024, the AIML department focuses on industry-aligned
+        education, research, ethical AI, and real-world problem solving.
+      </p>
     </section>
   );
-};
-
-export default About;
+}
