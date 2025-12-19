@@ -1,9 +1,19 @@
 import { NavLink } from "react-router-dom";
+import logo from "../assets/astra-logo.png";
+
 
 const Navbar = () => {
   return (
     <nav className="flex justify-between items-center px-6 md:px-16 py-4 bg-white shadow-sm">
-      <h1 className="text-xl font-bold text-purple-600">ASTRA</h1>
+      <div className="flex items-center gap-3">
+  <img
+    src={logo}
+    alt="ASTRA Club Logo"
+    className="h-20 w-20 object-contain"
+  />
+  
+</div>
+
 
       <ul className="flex gap-6 font-medium">
         {["/", "/about", "/events", "/team", "/contact"].map((path, i) => {
