@@ -1,31 +1,61 @@
-import { NavLink } from "react-router-dom";
+export default function Navbar() {
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center px-6 md:px-16 py-4 bg-white shadow-sm">
-      <h1 className="text-xl font-bold text-purple-600">ASTRA</h1>
+    <nav className="sticky top-0 z-50 bg-[#0b0f19] border-b border-gray-700">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        
+        {/* Logo */}
+        <h1
+          onClick={() => scrollToSection("home")}
+          className="text-xl font-bold text-white cursor-pointer"
+        >
+          ASTRA
+        </h1>
 
-      <ul className="flex gap-6 font-medium">
-        {["/", "/about", "/events", "/team", "/contact"].map((path, i) => {
-          const labels = ["Home", "About", "Events", "Team", "Contact"];
-          return (
-            <li key={path}>
-              <NavLink
-                to={path}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-purple-600"
-                    : "text-gray-700 hover:text-purple-500"
-                }
-              >
-                {labels[i]}
-              </NavLink>
-            </li>
-          );
-        })}
-      </ul>
+        {/* Navigation Links */}
+        <div className="flex gap-6 text-gray-300">
+          <button
+            onClick={() => scrollToSection("home")}
+            className="hover:text-blue-400 transition"
+          >
+            Home
+          </button>
+
+          <button
+            onClick={() => scrollToSection("about")}
+            className="hover:text-blue-400 transition"
+          >
+            About
+          </button>
+
+          <button
+            onClick={() => scrollToSection("events")}
+            className="hover:text-blue-400 transition"
+          >
+            Events
+          </button>
+
+          <button
+            onClick={() => scrollToSection("team")}
+            className="hover:text-blue-400 transition"
+          >
+            Team
+          </button>
+
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="hover:text-blue-400 transition"
+          >
+            Contact
+          </button>
+        </div>
+      </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

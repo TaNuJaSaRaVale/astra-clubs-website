@@ -1,25 +1,15 @@
-const Team = () => {
+export default function Team() {
   return (
-    <section className="space-y-6">
-      <header>
-        <h1 className="text-4xl font-bold text-slate-900">
-          Our Team
-        </h1>
-        <p className="mt-2 text-slate-600">
-          Meet the people behind ASTRA.
-        </p>
-      </header>
+    <section id="team" style={{ padding: "100px 60px" }}>
+      <h1>Our Team</h1>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Team Member Card Placeholder */}
-        <div className="rounded-xl bg-white p-5 text-center shadow-sm">
-          <div className="h-24 w-24 mx-auto rounded-full bg-slate-200" />
-          <h3 className="mt-4 font-semibold">Name</h3>
-          <p className="text-sm text-slate-600">Role</p>
-        </div>
-      </div>
+      <h2 style={{ marginTop: "30px" }}>Head of Department</h2>
+      <p><strong>Dr. Mahant Sir</strong></p>
+      <p>Head, AIML Department</p>
+      <p>(Photo will be added)</p>
+
+      <h2 style={{ marginTop: "40px" }}>ASTRA Association Board</h2>
+      <p>Names, roles, and photos will be updated shortly.</p>
     </section>
   );
-};
-
-export default Team;
+}

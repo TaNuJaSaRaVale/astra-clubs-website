@@ -1,12 +1,11 @@
-const Home = () => {
+export default function Home() {
   return (
-    <section>
-      <h2 className="text-3xl font-bold mb-4">Home</h2>
-      <p className="text-gray-600">
-        Home page content will go here.
+    <section id="home" style={{ padding: "100px 60px" }}>
+      <h1>ASTRA – AIML Departmental Club</h1>
+      <p>
+        Association of Students for Theoretical Reasoning in Artificial
+        Intelligence
       </p>
     </section>
   );
-};
-
-export default Home;
+}
