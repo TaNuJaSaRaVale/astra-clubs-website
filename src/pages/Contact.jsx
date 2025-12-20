@@ -62,6 +62,8 @@ export default function Contact() {
                 </div>
               ))}
             </div>
+          
+              /*UI enhancement */
 
             {/* SOCIAL LINKS */}
             <div className="pt-10 border-t border-slate-200">
