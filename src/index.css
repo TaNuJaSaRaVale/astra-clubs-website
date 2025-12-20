@@ -2,8 +2,23 @@
 
 /* ================= BASE ================= */
 html, body {
-  background-color: #0b0f19;
-  color: #e5e7eb;
+  /* Base color */
+  background-color: #f8faff;
+  
+  /* 1. Multi-point Mesh Gradient (Soft Neural Glows) */
+  /* 2. Subtle Dot Pattern (Tech/Blueprint texture) */
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(224,100%,96%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(226,100%,94%,1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(220,100%,97%,1) 0, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(225,100%,92%,0.5) 0, transparent 50%),
+    radial-gradient(#6366f115 1px, transparent 1px);
+    
+  /* Grid size for the dot pattern */
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px;
+  
+  min-height: 100vh;
+  color: #1e293b; /* Changed from light gray to slate-800 for readability on light bg */
   scroll-behavior: smooth;
   cursor: none;
 }
@@ -17,16 +32,16 @@ html, body {
 }
 
 /* ================= CUSTOM CURSOR ================= */
-#cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 14px;
-  height: 14px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, #6366f1, #22d3ee);
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease;
+*{
+  cursor: auto;
+
+}
+
+/* ================= ENHANCED GLASS CARD ================= */
+/* Utility for your Team/Home cards to pop against the new bg */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 20px 50px rgba(59, 130, 246, 0.08);
 }

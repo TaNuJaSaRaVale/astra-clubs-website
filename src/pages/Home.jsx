@@ -1,116 +1,141 @@
 import React from 'react';
-import { BookOpen, Users, Code, Search, Presentation, Briefcase, Zap, ArrowRight } from 'lucide-react';
+import { BookOpen, Users, Code, Search, Presentation, Briefcase, ArrowRight, Sparkles } from 'lucide-react';
 
 const features = [
   {
     title: "Theoretical Foundations",
     desc: "Deep diving into the mathematical core of neural networks and algorithms.",
-    icon: <BookOpen className="w-5 h-5" />,
-    color: "text-blue-400",
-    bg: "bg-blue-500/10"
+    icon: <BookOpen className="w-6 h-6" />,
+    color: "text-blue-600",
+    bg: "bg-blue-50"
   },
   {
     title: "Peer-to-Peer Learning",
     desc: "Knowledge sharing sessions where students teach students.",
-    icon: <Users className="w-5 h-5" />,
-    color: "text-purple-400",
-    bg: "bg-purple-500/10"
+    icon: <Users className="w-6 h-6" />,
+    color: "text-blue-600",
+    bg: "bg-blue-50"
   },
   {
     title: "Hands-on Projects",
     desc: "Building real-world applications from Computer Vision to LLMs.",
-    icon: <Code className="w-5 h-5" />,
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/10"
+    icon: <Code className="w-6 h-6" />,
+    color: "text-blue-600",
+    bg: "bg-blue-50"
   },
   {
     title: "Research Orientation",
     desc: "Fostering a culture of reading and publishing technical papers.",
-    icon: <Search className="w-5 h-5" />,
-    color: "text-amber-400",
-    bg: "bg-amber-500/10"
+    icon: <Search className="w-6 h-6" />,
+    color: "text-blue-600",
+    bg: "bg-blue-50"
   },
   {
     title: "Workshops & Sessions",
     desc: "Regular bootcamps and expert talks on emerging AI trends.",
-    icon: <Presentation className="w-5 h-5" />,
-    color: "text-rose-400",
-    bg: "bg-rose-500/10"
+    icon: <Presentation className="w-6 h-6" />,
+    color: "text-blue-600",
+    bg: "bg-blue-50"
   },
   {
     title: "Industry Readiness",
     desc: "Preparing for AI roles with mock interviews and portfolio building.",
-    icon: <Briefcase className="w-5 h-5" />,
-    color: "text-indigo-400",
-    bg: "bg-indigo-500/10"
+    icon: <Briefcase className="w-6 h-6" />,
+    color: "text-blue-600",
+    bg: "bg-blue-50"
   },
 ];
 
 export default function Home() {
-  return (
-    <section id="home" className="relative min-h-screen bg-[#020617] text-slate-200 overflow-hidden font-sans">
-      
-      {/* Radial Gradient Background */}
-      <div className="absolute inset-0 z-0 opacity-30" 
-           style={{ backgroundImage: `radial-gradient(circle at 50% 50%, #1e293b 0%, transparent 70%)` }}>
-      </div>
 
-      {/* Background Decorative Glow */}
-      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full -z-10" />
-      
-      <div className="relative z-10 container mx-auto px-6 py-24 lg:py-32 space-y-32">
-        
-        {/* Hero Section */}
-        <div className="text-center space-y-10 max-w-5xl mx-auto">
-          {/* Institution Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/50 text-indigo-400 text-[10px] uppercase tracking-[0.2em] font-bold">
-            <Zap size={12} className="fill-current" />
+  const scrollToAbout = () => {
+    const section = document.getElementById("about");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section id="home" className="relative min-h-screen bg-[#f8faff] text-slate-800 overflow-hidden font-sans">
+
+      {/* Background */}
+      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-blue-500/5 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 right-[-5%] w-[600px] h-[600px] bg-indigo-500/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_0.5px,transparent_0.5px)] [background-size:40px_40px] opacity-30 pointer-events-none" />
+
+      <div className="relative z-10 container mx-auto px-6 py-24 lg:py-40 space-y-48">
+
+        {/* HERO */}
+        <div className="text-center space-y-12 max-w-5xl mx-auto">
+          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-slate-200 bg-white/40 backdrop-blur-xl shadow-sm text-slate-500 text-[10px] uppercase tracking-[0.3em] font-bold">
+            <Sparkles size={12} className="text-blue-500" />
             <span>Walchand College of Engineering</span>
           </div>
-          
-          {/* Clean Title - No Dots */}
-          <h1 className="text-8xl md:text-9xl font-black tracking-tighter text-white leading-none">
-            ASTRA
-          </h1>
-          
-          <div className="space-y-6">
-            <p className="text-xl md:text-2xl font-medium text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Association of Students for <span className="text-indigo-400">Theoretical Reasoning</span> in AI
+
+          <div className="relative py-4">
+            <h1
+              className="text-8xl md:text-9xl lg:text-[11rem] font-black tracking-tighter leading-none
+              bg-clip-text text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-600"
+            >
+              ASTRA
+            </h1>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] bg-blue-400/5 blur-[80px] -z-10 rounded-full" />
+          </div>
+
+          <div className="space-y-8">
+            <p className="text-xl md:text-2xl font-semibold text-slate-600 max-w-2xl mx-auto">
+              Association of Students for <span className="text-blue-600">Theoretical Reasoning</span> in AI
             </p>
-            <p className="max-w-xl mx-auto text-base text-slate-500 leading-relaxed">
-              Advancing the frontier of intelligence through rigorous research, 
-              collaborative learning, and real-world implementation.
+            <p className="max-w-xl mx-auto text-base text-slate-400 font-medium">
+              Advancing the frontier of intelligence through rigorous research, collaborative learning, and practical implementation.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6">
-            <button className="group px-10 py-4 bg-white text-black font-bold rounded-2xl hover:bg-slate-200 transition-all flex items-center justify-center gap-2">
-              Get Started <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-10 py-4 bg-transparent border border-slate-700 hover:border-slate-500 text-white font-bold rounded-2xl transition-all">
-              Learn More
+          <div className="flex justify-center pt-10">
+            <button
+              onClick={scrollToAbout}
+              className="group px-12 py-4 bg-slate-900 text-white font-bold rounded-2xl transition-all hover:bg-blue-600 hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)] active:scale-95 flex items-center gap-3"
+            >
+              Get Started
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        {/* FEATURES GRID WITH VIDEO-LIKE HOVER */}
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto pb-24">
           {features.map((item, index) => (
             <div
               key={index}
-              className="group relative bg-[#0f172a]/40 border border-slate-800/60 rounded-3xl p-8 hover:bg-[#0f172a]/80 hover:border-indigo-500/30 transition-all duration-300"
+              className="group relative rounded-[2.5rem] p-10 bg-white/60 backdrop-blur-xl border border-white
+              transition-all duration-500 hover:-translate-y-3
+              shadow-[0_20px_50px_rgba(59,130,246,0.06)] hover:shadow-[0_40px_80px_rgba(37,99,235,0.18)]"
             >
-              <div className={`mb-6 p-4 w-fit rounded-2xl ${item.bg} ${item.color} group-hover:scale-105 transition-transform duration-300`}>
-                {item.icon}
+
+              {/* HOVER GLOW LAYER */}
+              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-blue-500/10 via-transparent to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+              {/* CONTENT */}
+              <div className="relative z-10">
+                <div className={`mb-8 p-4 w-fit rounded-2xl ${item.bg} ${item.color} border border-blue-50
+                  transition-all duration-500 group-hover:scale-110 group-hover:shadow-md`}>
+                  {item.icon}
+                </div>
+
+                <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-600 transition-colors duration-300">
+                  {item.title}
+                </h3>
+
+                <p className="text-slate-500 text-sm leading-relaxed font-medium">
+                  {item.desc}
+                </p>
+
+                <div className="mt-8 w-8 h-1 bg-slate-200 rounded-full group-hover:w-full group-hover:bg-blue-500 transition-all duration-700" />
               </div>
-              
-              <h3 className="text-lg font-bold text-white mb-3 tracking-tight">{item.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {item.desc}
-              </p>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

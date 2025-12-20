@@ -1,4 +1,3 @@
-import CustomCursor from "./components/CustomCursor";
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./pages/Home";
@@ -10,7 +9,7 @@ import Contact from "./pages/Contact";
 export default function App() {
   return (
     <>
-      <CustomCursor />
+     
       <MainLayout>
         <Home />
         <About />
