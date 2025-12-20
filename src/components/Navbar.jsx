@@ -9,41 +9,34 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0b0f19] border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-lg border-b">
+  <div className="flex items-center justify-between px-6 lg:px-12 py-4">
 
-        {/* LOGO */}
-        <div
-          onClick={() => scrollToSection("home")}
-          className="cursor-pointer"
+    {/* LOGO — hard left */}
+    <div className="flex items-center gap-3">
+      <img
+        src={logo}
+        alt="ASTRA Logo"
+        className="h-14 w-auto cursor-pointer"
+        onClick={() => scrollToSection("home")}
+      />
+    </div>
+
+    {/* NAV LINKS */}
+    <div className="hidden md:flex gap-8 text-sm font-medium text-slate-700">
+      {["home", "about", "events", "team", "contact"].map((item) => (
+        <button
+          key={item}
+          onClick={() => scrollToSection(item)}
+          className="relative group"
         >
-          <img
-            src={logo}
-            alt="ASTRA Club Logo"
-            className="h-20 w-20 object-contain"
-          />
-        </div>
+          <span className="capitalize">{item}</span>
+          <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-slate-900 transition-all group-hover:w-full"></span>
+        </button>
+      ))}
+    </div>
+  </div>
+</nav>
 
-        {/* NAV LINKS */}
-        <div className="flex gap-6 text-gray-300">
-          <button onClick={() => scrollToSection("home")} className="hover:text-purple-400">
-            Home
-          </button>
-          <button onClick={() => scrollToSection("about")} className="hover:text-purple-400">
-            About
-          </button>
-          <button onClick={() => scrollToSection("events")} className="hover:text-purple-400">
-            Events
-          </button>
-          <button onClick={() => scrollToSection("team")} className="hover:text-purple-400">
-            Team
-          </button>
-          <button onClick={() => scrollToSection("contact")} className="hover:text-purple-400">
-            Contact
-          </button>
-        </div>
-
-      </div>
-    </nav>
   );
 }

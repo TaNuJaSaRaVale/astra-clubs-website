@@ -1,16 +1,14 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const MainLayout = ({ children }) => {
+export default function MainLayout({ children }) {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen px-6 md:px-16 py-10">
+      <main className="pt-28 px-6 lg:px-16 space-y-40">
         {children}
       </main>
       <Footer />
     </>
   );
-};
-
-export default MainLayout;
+}

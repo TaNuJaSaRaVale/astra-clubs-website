@@ -1,5 +1,4 @@
 import hodPhoto from "../assets/hod-vivek-waghmare.jpg";
-import SwipeRow from "../components/SwipeRow";
 
 export default function About() {
   return (
@@ -43,8 +42,8 @@ export default function About() {
           </p>
         </div>
 
-        {/* WCE HIGHLIGHTS – SWIPE */}
-        <SwipeRow>
+        {/* WCE HIGHLIGHTS */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
             "Over 75 years of excellence in engineering education",
             "Autonomous institution affiliated with Shivaji University",
@@ -54,21 +53,12 @@ export default function About() {
           ].map((item, i) => (
             <div
               key={i}
-              className="
-                min-w-[300px]
-                bg-white rounded-2xl p-6
-                border shadow-sm
-                snap-center
-                hover:-translate-y-1 hover:shadow-md
-                transition
-              "
+              className="bg-white rounded-2xl p-6 border shadow-sm"
             >
-              <p className="font-medium text-slate-800">
-                {item}
-              </p>
+              <p className="font-medium text-slate-800">{item}</p>
             </div>
           ))}
-        </SwipeRow>
+        </div>
 
         <p className="text-slate-700 leading-relaxed max-w-5xl">
           Beyond academics, life at WCE is vibrant, inclusive, and full of
@@ -89,10 +79,9 @@ export default function About() {
               Academic Excellence
             </h3>
             <p className="text-slate-700">
-              Established in 2024, the department has consistently upheld its
-              commitment to strong academic rigor, blending foundational
-              knowledge with cutting-edge AI and ML technologies through an
-              industry-aligned curriculum.
+              Established in 2024, the department upholds strong academic rigor,
+              blending foundational knowledge with cutting-edge AI and ML
+              technologies through an industry-aligned curriculum.
             </p>
           </div>
 
@@ -101,17 +90,17 @@ export default function About() {
               Research & Industry Interface
             </h3>
             <p className="text-slate-700">
-              Faculty and students actively contribute through publications,
+              Faculty and students actively engage in research publications,
               conferences, and collaborative projects with industry leaders,
-              bridging the gap between academia and professional practice.
+              bridging academia and real-world practice.
             </p>
           </div>
         </div>
 
         <p className="text-slate-700 leading-relaxed max-w-5xl">
-          The department boasts modern laboratories, high-performance computing
-          facilities, advanced software tools, and strong industry partnerships
-          for internships, placements, and real-world exposure.
+          The department is equipped with modern laboratories, high-performance
+          computing resources, and advanced software tools, empowering students
+          to innovate, experiment, and excel in their endeavors.
         </p>
       </div>
 
@@ -126,7 +115,7 @@ export default function About() {
             <img
               src={hodPhoto}
               alt="Dr. Vivek Nivrutirao Waghmare"
-              className="h-60 w-100 rounded-2xl object-cover shadow-md"
+              className="h-48 w-48 rounded-2xl object-cover shadow-md"
             />
           </div>
 
@@ -148,13 +137,13 @@ export default function About() {
         </div>
       </div>
 
-      {/* ================= OBJECTIVES – SWIPE ================= */}
+      {/* ================= OBJECTIVES ================= */}
       <div className="space-y-10">
         <h2 className="text-4xl font-bold text-center">
           Department Objectives
         </h2>
 
-        <SwipeRow>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
             "Deliver quality and industry-relevant education",
             "Promote research, innovation, and emerging technologies",
@@ -169,19 +158,12 @@ export default function About() {
           ].map((obj, i) => (
             <div
               key={i}
-              className="
-                min-w-[300px]
-                bg-white p-6 rounded-2xl
-                border shadow-sm
-                snap-center
-              "
+              className="bg-white p-6 rounded-2xl border shadow-sm"
             >
-              <p className="font-medium text-slate-700">
-                {obj}
-              </p>
+              <p className="font-medium text-slate-700">{obj}</p>
             </div>
           ))}
-        </SwipeRow>
+        </div>
       </div>
 
       {/* ================= VISION & MISSION ================= */}
@@ -204,7 +186,7 @@ export default function About() {
         </ul>
       </div>
 
-      {/* ================= ASTRA CLUB ================= */}
+      {/* ================= ASTRA ================= */}
       <div className="space-y-6 max-w-5xl">
         <h2 className="text-4xl font-bold">
           ASTRA – Departmental Club
