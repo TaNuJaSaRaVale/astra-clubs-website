@@ -59,9 +59,9 @@ export default function Home() {
     <section id="home" className="relative min-h-screen bg-[#f8faff] text-slate-800 overflow-hidden font-sans">
 
       {/* Background */}
-      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-blue-500/5 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/4 right-[-5%] w-[600px] h-[600px] bg-indigo-500/5 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_0.5px,transparent_0.5px)] [background-size:40px_40px] opacity-30 pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-200 h-200 bg-blue-500/5 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 right-[-5%] w-150 h-150 bg-indigo-500/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_0.5px,transparent_0.5px)] bg-size-[40px_40px] opacity-30 pointer-events-none" />
 
       <div className="relative z-10 container mx-auto px-6 py-24 lg:py-40 space-y-48">
 
@@ -75,7 +75,7 @@ export default function Home() {
           <div className="relative py-4">
             <h1
               className="text-8xl md:text-9xl lg:text-[11rem] font-black tracking-tighter leading-none
-              bg-clip-text text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-600"
+              bg-clip-text text-transparent bg-linear-to-r from-slate-900 to-blue-600"
             >
               ASTRA
             </h1>
@@ -113,7 +113,7 @@ export default function Home() {
             >
 
               {/* HOVER GLOW LAYER */}
-              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-blue-500/10 via-transparent to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              <div className="absolute inset-0 rounded-[2.5rem] bg-linear-to-br from-blue-500/10 via-transparent to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
               {/* CONTENT */}
               <div className="relative z-10">

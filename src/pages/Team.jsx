@@ -71,7 +71,7 @@ export default function Team() {
     <section id="team" className="relative min-h-screen bg-[#f8faff] text-slate-800 overflow-hidden font-sans">
       
       {/* Background Decorative Glows - Adjusted for Light Mode */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-400/10 blur-[120px] rounded-full -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-150 bg-blue-400/10 blur-[120px] rounded-full -z-10" />
       
       <div className="max-w-7xl mx-auto px-8 py-24 space-y-24">
 
@@ -99,7 +99,7 @@ export default function Team() {
             {memberValues.map((item, i) => (
               <div
                 key={i}
-                className="min-w-[340px] bg-white/70 backdrop-blur-xl border border-white rounded-[2.5rem] p-10
+                className="min-w-85 bg-white/70 backdrop-blur-xl border border-white rounded-[2.5rem] p-10
                   snap-center hover:scale-[1.02] transition-all duration-300 group 
                   shadow-[0_20px_50px_rgba(59,130,246,0.12)]"
               >
@@ -133,7 +133,7 @@ export default function Team() {
             {associateRoles.map((item, i) => (
               <div
                 key={i}
-                className="min-w-[340px] bg-white/70 backdrop-blur-xl border border-white rounded-[2.5rem] p-10
+                className="min-w-85 bg-white/70 backdrop-blur-xl border border-white rounded-[2.5rem] p-10
                   snap-center hover:scale-[1.02] transition-all duration-300 group
                   shadow-[0_20px_50px_rgba(59,130,246,0.12)]"
               >

@@ -39,8 +39,8 @@ export default function Events() {
     <section id="events" className="relative min-h-screen bg-[#f8faff] text-slate-800 py-24 overflow-hidden font-sans">
       
       {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-1/4 w-[700px] h-[700px] bg-blue-400/10 blur-[150px] rounded-full -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-400/10 blur-[150px] rounded-full -z-10" />
+      <div className="absolute top-0 left-1/4 w-175 h-175 bg-blue-400/10 blur-[150px] rounded-full -z-10" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/10 blur-[150px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 space-y-20">
         
@@ -51,7 +51,7 @@ export default function Events() {
             <span>Timeline</span>
           </div>
           <h1 className="text-6xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none">
-            Events at <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-600">ASTRA</span>
+            Events at <span className="text-transparent bg-clip-text bg-linear-to-r from-slate-900 to-blue-600">ASTRA</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-slate-500 font-medium leading-relaxed">
             From technical deep-dives to collaborative research sprints, explore the 
@@ -95,7 +95,7 @@ export default function Events() {
 
               {/* Bottom Decorative Line */}
               <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                 <div className={`h-full w-0 group-hover:w-full transition-all duration-700 bg-gradient-to-r from-transparent via-blue-500 to-transparent`}></div>
+                 <div className={`h-full w-0 group-hover:w-full transition-all duration-700 bg-linear-to-r from-transparent via-blue-500 to-transparent`}></div>
               </div>
             </div>
           ))}
