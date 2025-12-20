@@ -1,145 +1,158 @@
+import React from 'react';
+import { 
+  Brain, Users, Sprout, Globe, FileText, Terminal, 
+  Megaphone, HeartHandshake, Code, Palette, Wallet, Sparkles 
+} from "lucide-react";
 import SwipeRow from "../components/SwipeRow";
+
+const memberValues = [
+  {
+    title: "Learning & Skill Development",
+    desc: "Building strong fundamentals in AI, ML, and the mathematical concepts behind neural networks.",
+    icon: <Brain className="w-6 h-6 text-indigo-400" />
+  },
+  {
+    title: "Active Participation",
+    desc: "Engaging in intensive workshops, study groups, and hands-on activities organized by the club.",
+    icon: <Sparkles className="w-6 h-6 text-cyan-400" />
+  },
+  {
+    title: "Collaborative Growth",
+    desc: "Sharing knowledge and experiences through peer-to-peer learning to grow as a community.",
+    icon: <Users className="w-6 h-6 text-purple-400" />
+  },
+  {
+    title: "Exploration & Exposure",
+    desc: "Gaining early exposure to research papers, high-impact projects, and emerging tech.",
+    icon: <Globe className="w-6 h-6 text-emerald-400" />
+  }
+];
+
+const associateRoles = [
+  {
+    role: "Secretary",
+    desc: "Handles official documentation, communication, and departmental coordination.",
+    icon: <FileText className="w-6 h-6" />
+  },
+  {
+    role: "Technical Head",
+    desc: "Oversees technical learning, workshop quality, and project architectures.",
+    icon: <Terminal className="w-6 h-6" />
+  },
+  {
+    role: "Public Relations Officer",
+    desc: "Manages outreach, external communication, and ASTRA's public presence.",
+    icon: <Megaphone className="w-6 h-6" />
+  },
+  {
+    role: "Club Service Director",
+    desc: "Coordinates mentorship programs and ensures inclusive learning initiatives.",
+    icon: <HeartHandshake className="w-6 h-6" />
+  },
+  {
+    role: "Web Developer",
+    desc: "Designs and maintains the official ASTRA digital platforms and web architecture.",
+    icon: <Code className="w-6 h-6" />
+  },
+  {
+    role: "Art & Design Team",
+    desc: "Crafts the visual branding and creative identity of ASTRA across all media.",
+    icon: <Palette className="w-6 h-6" />
+  },
+  {
+    role: "Treasurer",
+    desc: "Manages financial budgeting, expense tracking, and club fund transparency.",
+    icon: <Wallet className="w-6 h-6" />
+  }
+];
 
 export default function Team() {
   return (
-    <section
-      id="team"
-      className="max-w-7xl mx-auto px-4 space-y-32"
-    >
+    <section id="team" className="relative min-h-screen bg-[#020617] text-slate-300 overflow-hidden font-sans">
+      
+      {/* Background Decorative Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-600/5 blur-[120px] rounded-full -z-10" />
+      
+      <div className="max-w-7xl mx-auto px-6 py-24 space-y-32">
 
-      {/* ================= PAGE INTRO ================= */}
-      <div className="text-center space-y-6">
-        <h1 className="text-5xl font-extrabold text-slate-900">
-          Our Team
-        </h1>
-        <p className="max-w-3xl mx-auto text-lg text-slate-600">
-          ASTRA is powered by a dedicated team of students working together
-          to promote learning, innovation, and growth in Artificial
-          Intelligence & Machine Learning.
-        </p>
+        {/* ================= PAGE INTRO ================= */}
+        <div className="text-center space-y-6">
+          <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-white">
+            Our Team<span className="text-indigo-500">_</span>
+          </h1>
+          <p className="max-w-3xl mx-auto text-lg text-slate-400 leading-relaxed">
+            ASTRA is powered by a dedicated collective of students at <span className="text-white font-semibold">Walchand College of Engineering</span>, 
+            working to push the boundaries of Artificial Intelligence.
+          </p>
+        </div>
+
+        {/* ================= MEMBER BOARD ================= */}
+        <div className="space-y-12">
+          <div className="space-y-4">
+            <h2 className="text-4xl font-bold text-white tracking-tight">
+              Member Board <span className="text-slate-500 font-light">(First Year)</span>
+            </h2>
+            <p className="max-w-3xl text-slate-400 leading-relaxed">
+              The foundation of ASTRA. These members represent the future of the club, 
+              actively developing their theoretical and practical AI & ML foundations.
+            </p>
+          </div>
+
+          <SwipeRow>
+            {memberValues.map((item, i) => (
+              <div
+                key={i}
+                className="min-w-[320px] bg-[#0f172a]/40 backdrop-blur-md border border-slate-800 rounded-3xl p-8
+                  snap-center hover:border-indigo-500/30 transition-all duration-300 group shadow-2xl"
+              >
+                <div className="mb-6 p-4 w-fit rounded-2xl bg-slate-900/80 border border-slate-800 group-hover:scale-110 transition-transform">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </SwipeRow>
+        </div>
+
+        {/* ================= ASSOCIATE BOARD ================= */}
+        <div className="space-y-12">
+          <div className="space-y-4">
+            <h2 className="text-4xl font-bold text-white tracking-tight">
+              Associate Board
+            </h2>
+            <p className="max-w-3xl text-slate-400 leading-relaxed">
+              Our leadership team. Responsible for managing operations, guiding technical 
+              initiatives, and maintaining the vision of the department.
+            </p>
+          </div>
+
+          <SwipeRow>
+            {associateRoles.map((item, i) => (
+              <div
+                key={i}
+                className="min-w-[320px] bg-[#0f172a]/40 backdrop-blur-md border border-slate-800 rounded-3xl p-8
+                  snap-center hover:border-indigo-500/30 transition-all duration-300 group shadow-2xl"
+              >
+                <div className="mb-6 p-4 w-fit rounded-2xl bg-indigo-500/5 border border-indigo-500/10 text-indigo-400 group-hover:bg-indigo-500/10 transition-colors">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  {item.role}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </SwipeRow>
+        </div>
+
       </div>
-
-      {/* ================= MEMBER BOARD ================= */}
-      <div className="space-y-10">
-        <h2 className="text-4xl font-bold text-slate-900">
-          Member Board (First Year)
-        </h2>
-
-        <p className="max-w-4xl text-slate-700">
-          The Member Board consists of first-year students who form the
-          foundation of ASTRA. While they do not hold formal posts, members
-          actively participate in learning activities, discussions, projects,
-          and collaborative initiatives, developing strong theoretical and
-          practical foundations in AI & ML.
-        </p>
-
-        <SwipeRow>
-          {[
-            {
-              title: "Learning & Skill Development",
-              desc: "Members focus on building strong fundamentals in Artificial Intelligence, Machine Learning, and related mathematical concepts through guided learning sessions.",
-            },
-            {
-              title: "Active Participation",
-              desc: "Members actively take part in workshops, study groups, discussions, and hands-on activities organized by the club.",
-            },
-            {
-              title: "Collaborative Growth",
-              desc: "Peer-to-peer learning is encouraged, helping members grow together by sharing knowledge, ideas, and experiences.",
-            },
-            {
-              title: "Exploration & Exposure",
-              desc: "Members explore various domains of AI & ML, gaining early exposure to research, projects, and emerging technologies.",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="
-                min-w-[320px]
-                bg-white rounded-2xl p-6
-                border shadow-sm
-                snap-center
-                hover:-translate-y-1 hover:shadow-md
-                transition-all duration-300
-              "
-            >
-              <h3 className="text-xl font-semibold mb-3">
-                {item.title}
-              </h3>
-              <p className="text-slate-600">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </SwipeRow>
-      </div>
-
-      {/* ================= ASSOCIATE BOARD ================= */}
-      <div className="space-y-10">
-        <h2 className="text-4xl font-bold text-slate-900">
-          Associate Board
-        </h2>
-
-        <p className="max-w-4xl text-slate-700">
-          The Associate Board comprises students holding specific leadership
-          and functional responsibilities. These members manage operations,
-          guide initiatives, and ensure smooth functioning of ASTRA while
-          aligning activities with the club’s vision and objectives.
-        </p>
-
-        <SwipeRow>
-          {[
-            {
-              role: "Secretary",
-              desc: "Handles official documentation, meeting records, communication, and coordination among members and faculty.",
-            },
-            {
-              role: "Technical Head",
-              desc: "Oversees technical learning activities, workshops, projects, and ensures technical quality within the club.",
-            },
-            {
-              role: "Public Relations Officer",
-              desc: "Manages external communication, promotions, outreach activities, and represents the club to the broader community.",
-            },
-            {
-              role: "Club Service Director",
-              desc: "Coordinates club services, learning initiatives, mentorship programs, and ensures inclusive participation.",
-            },
-            {
-              role: "Web Developer",
-              desc: "Designs, develops, and maintains the official ASTRA website and digital platforms.",
-            },
-            {
-              role: "Art & Design Team",
-              desc: "Responsible for visual branding, posters, creative designs, and maintaining a strong visual identity for ASTRA.",
-            },
-            {
-              role: "Treasurer",
-              desc: "Manages financial planning, budgeting, expense tracking, and ensures transparent handling of club funds.",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="
-                min-w-[320px]
-                bg-white rounded-2xl p-6
-                border shadow-sm
-                snap-center
-                hover:-translate-y-1 hover:shadow-md
-                transition-all duration-300
-              "
-            >
-              <h3 className="text-xl font-semibold mb-3">
-                {item.role}
-              </h3>
-              <p className="text-slate-600">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </SwipeRow>
-      </div>
-
     </section>
   );
 }
