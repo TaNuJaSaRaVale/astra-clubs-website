@@ -23,8 +23,8 @@ export default function About() {
         </div>
 
         {/* ABOUT WCE */}
-        <div className="space-y-12">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-blue-100 bg-white shadow-sm text-blue-600 text-xs font-bold uppercase tracking-widest">
+        <div className="space-y-8">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-blue-100 bg-white shadow-sm text-blue-600 text-xs font-bold uppercase tracking-widest">
             <GraduationCap size={16} />
             <span>The Legacy</span>
           </div>
@@ -33,7 +33,8 @@ export default function About() {
             Walchand College of Engineering, Sangli
           </h2>
 
-          <div className="grid gap-12 md:grid-cols-2 items-start">
+          <div className="flex flex-col gap-6 max-w-3xl">
+
             <p className="text-slate-500 text-lg leading-relaxed font-medium">
               Established in <span className="text-slate-900 font-bold">1947</span>, Walchand College of Engineering (WCE), Sangli,
               stands as a beacon of excellence in engineering education.
@@ -136,7 +137,7 @@ export default function About() {
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-white/50 text-blue-600 text-xs font-bold uppercase tracking-widest">
                     {obj.icon}
-                    Objective
+                    
                   </div>
                 </div>
 

@@ -109,9 +109,13 @@ export default function Events() {
               </div>
               <h2 className="text-4xl font-bold text-slate-900 mb-4 italic tracking-tight">Have an event idea?</h2>
               <p className="text-slate-500 mb-10 max-w-md mx-auto text-lg font-medium">We are always looking for new domains to explore. Pitch your workshop or session to the core team.</p>
-              <button className="px-10 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-xl active:scale-95">
-                Propose an Event
-              </button>
+              <a
+  href="#contact"
+  className="inline-block px-10 py-4 bg-slate-900 text-white font-bold rounded-2xl 
+  hover:bg-blue-600 transition-all shadow-xl active:scale-95"
+>
+  Propose an Event
+</a>
             </div>
         </div>
 

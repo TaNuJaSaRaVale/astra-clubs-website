@@ -31,7 +31,7 @@ export default function Contact() {
                 <span>Get in Touch</span>
               </div>
               <h1 className="text-6xl md:text-7xl font-black text-slate-900 tracking-tighter">
-                Contact Us<span className="text-blue-600">.</span>
+                Contact Us<span className="text-blue-600"></span>
               </h1>
               <p className="text-xl text-slate-500 max-w-md leading-relaxed font-medium">
                 Have a question or a brilliant idea? Reach out to the <span className="text-slate-900 font-bold">ASTRA</span> team and let's build the future together.
@@ -63,7 +63,7 @@ export default function Contact() {
               ))}
             </div>
           
-              /*UI enhancement */
+              
 
             {/* SOCIAL LINKS */}
             <div className="pt-10 border-t border-slate-200">
