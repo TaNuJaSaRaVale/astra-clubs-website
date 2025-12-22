@@ -7,8 +7,8 @@ export default function About() {
     <section id="about" className="relative min-h-screen bg-[#f8faff] text-slate-800 overflow-hidden font-sans">
       
       {/* Background Decorative Glows */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-400/10 blur-[130px] rounded-full -z-10" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-400/10 blur-[130px] rounded-full -z-10" />
+      <div className="absolute top-0 right-0 w-150 h-150 bg-blue-400/10 blur-[130px] rounded-full -z-10" />
+      <div className="absolute bottom-0 left-0 w-150 h-150 bg-indigo-400/10 blur-[130px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 py-24 space-y-32 relative z-10">
 
@@ -17,7 +17,7 @@ export default function About() {
           <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-slate-900">
             About<span className="text-blue-600">_</span>
           </h1>
-          <p className="max-w-3xl mx-auto text-blue-600 font-bold tracking-widest uppercase text-xs">
+          <p className="max-w-3xl mx-auto text-blue-600 font-bold tracking-widest uppercase text-lg">
             Walchand College of Engineering • Dept. of AI & ML • ASTRA Club
           </p>
         </div>
@@ -72,11 +72,11 @@ export default function About() {
         <div className="relative group">
           <div className="bg-white/80 backdrop-blur-xl border border-white rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 shadow-[0_30px_70px_rgba(59,130,246,0.12)]">
             <div className="shrink-0 relative">
-              <div className="absolute -inset-2 bg-gradient-to-tr from-blue-500 to-indigo-400 rounded-[2rem] blur opacity-10 group-hover:opacity-20 transition duration-500" />
+              <div className="absolute -inset-2 bg-linear-to-tr from-blue-500 to-indigo-400 rounded-4xl blur opacity-10 group-hover:opacity-20 transition duration-500" />
               <img
                 src={hodPhoto}
                 alt="Dr. Vivek Nivrutirao Waghmare"
-                className="relative h-60 w-80 md:h-64 md:w-96 rounded-[1.5rem] object-cover border-4 border-white shadow-lg"
+                className="relative h-60 w-80 md:h-64 md:w-96 rounded-3xl object-cover border-4 border-white shadow-lg"
               />
             </div>
 
@@ -147,7 +147,7 @@ export default function About() {
 
                 {/* Bottom decorative line */}
                 <div className="mt-8 w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full w-0 group-hover:w-full transition-all duration-700 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+                  <div className="h-full w-0 group-hover:w-full transition-all duration-700 bg-linear-to-r from-transparent via-blue-500 to-transparent" />
                 </div>
               </div>
             ))}

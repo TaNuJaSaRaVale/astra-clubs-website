@@ -17,8 +17,8 @@ export default function Contact() {
     <section id="contact" className="relative min-h-screen flex items-center justify-center px-6 py-24 bg-[#f8faff] text-slate-800 overflow-hidden font-sans">
       
       {/* Background Glows - Soft Blue Tones */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-blue-400/10 blur-[130px] rounded-full -z-10" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-400/10 blur-[130px] rounded-full -z-10" />
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-blue-400/10 blur-[130px] rounded-full -z-10" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-400/10 blur-[130px] rounded-full -z-10" />
 
       <div className="max-w-7xl w-full mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -84,7 +84,7 @@ export default function Contact() {
           {/* RIGHT: FEEDBACK FORM */}
           <div className="relative group">
             {/* Soft decorative glow behind the card */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/10 to-indigo-500/10 rounded-[3.5rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-700" />
+            <div className="absolute -inset-4 bg-linear-to-tr from-blue-500/10 to-indigo-500/10 rounded-[3.5rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-700" />
             
             <div className="relative bg-white/80 backdrop-blur-2xl p-10 md:p-12 rounded-[3rem] border border-white shadow-[0_30px_80px_rgba(59,130,246,0.12)]">
               <h2 className="text-4xl font-bold mb-10 text-slate-900 tracking-tight text-center lg:text-left">
@@ -130,7 +130,7 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full group bg-slate-900 hover:bg-blue-600 text-white font-bold py-5 rounded-[1.5rem] shadow-[0_20px_40px_rgba(15,23,42,0.2)] hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-3 active:scale-[0.98]"
+                  className="w-full group bg-slate-900 hover:bg-blue-600 text-white font-bold py-5 rounded-3xl shadow-[0_20px_40px_rgba(15,23,42,0.2)] hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-3 active:scale-[0.98]"
                 >
                   Submit Feedback <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>

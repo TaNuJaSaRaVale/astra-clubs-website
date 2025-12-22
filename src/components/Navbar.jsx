@@ -37,7 +37,7 @@ export default function Navbar() {
             className="h-10 md:h-12 w-auto cursor-pointer transition-transform duration-500 group-hover:scale-105"
             onClick={() => scrollToSection("home")}
           />
-          <div className="hidden lg:block h-6 w-[1px] bg-slate-200 mx-2"></div>
+          <div className="hidden lg:block h-6 w-px bg-slate-200 mx-2"></div>
           <span className="hidden lg:block text-xs font-bold tracking-[0.2em] text-slate-400 uppercase">
             WCE Sangli
           </span>
@@ -54,7 +54,7 @@ export default function Navbar() {
               >
                 {item}
                 {/* Modern Indicator Line - Matches Blue Theme */}
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_8px_rgba(37,99,235,0.4)]"></span>
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_8px_rgba(37,99,235,0.4)]"></span>
               </button>
             ))}
           </div>
