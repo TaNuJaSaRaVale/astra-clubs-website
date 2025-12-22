@@ -15,7 +15,7 @@ export default function About() {
         {/* PAGE INTRO */}
         <div className="text-center space-y-4">
           <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-slate-900">
-            About<span className="text-blue-600">_</span>
+            About<span className="text-blue-600"></span>
           </h1>
           <p className="max-w-3xl mx-auto text-blue-600 font-bold tracking-widest uppercase text-lg">
             Walchand College of Engineering • Dept. of AI & ML • ASTRA Club

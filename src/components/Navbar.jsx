@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from "../assets/astra-logo.png";
+import wceLogo from "../assets/wce-logo.png";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,44 +30,45 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12">
 
-        {/* LOGO */}
-        <div className="flex items-center gap-3 group">
-          <img
-            src={logo}
-            alt="ASTRA Logo"
-            className="h-10 md:h-12 w-auto cursor-pointer transition-transform duration-500 group-hover:scale-105"
-            onClick={() => scrollToSection("home")}
-          />
-          <div className="hidden lg:block h-6 w-px bg-slate-200 mx-2"></div>
-          <span className="hidden lg:block text-xs font-bold tracking-[0.2em] text-slate-400 uppercase">
-            WCE Sangli
-          </span>
-        </div>
+     {/* LOGOS */}
+<div className="flex items-center gap-4 group">
+  
+  {/* ASTRA LOGO */}
+  <img
+    src={logo}
+    alt="ASTRA Logo"
+    className="h-14 md:h-15 w-auto "
+    onClick={() => scrollToSection("home")}
+  />
+
+  {/* Divider */}
+  <div className="hidden lg:block h-6 w-px bg-slate-200/40"></div>
+
+  {/* WCE LOGO (replaces text) */}
+  <img
+    src={wceLogo}
+    alt="WCE Logo"
+    className="h-14 md:h-15 w-auto "
+  />
+
+</div>
+
 
         {/* NAV LINKS */}
-        <div className="hidden md:flex items-center gap-10">
-          <div className="flex gap-8 text-[13px] font-bold uppercase tracking-widest text-slate-500">
-            {["home", "about", "events", "team"].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className="relative group transition-colors hover:text-blue-600"
-              >
-                {item}
-                {/* Modern Indicator Line - Matches Blue Theme */}
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_8px_rgba(37,99,235,0.4)]"></span>
-              </button>
-            ))}
-          </div>
+<div className="hidden md:flex items-center gap-8 text-[13px] font-bold uppercase tracking-widest text-slate-500">
+  {["Home", "About", "Events", "Team", "Contact"].map((item) => (
+    <button
+      key={item}
+      onClick={() => scrollToSection(item.toLowerCase())}
+      className="relative group transition-colors hover:text-blue-600"
+    >
+      {item}
+      {/* Underline indicator */}
+      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_8px_rgba(37,99,235,0.4)]"></span>
+    </button>
+  ))}
+</div>
 
-          {/* Contact Button (Dark for Contrast) */}
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="px-6 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold uppercase tracking-widest hover:bg-blue-600 transition-all shadow-lg active:scale-95"
-          >
-            Contact
-          </button>
-        </div>
 
         {/* MOBILE TOGGLE */}
         <div className="md:hidden flex items-center">

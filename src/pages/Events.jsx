@@ -51,7 +51,7 @@ export default function Events() {
             <span>Timeline</span>
           </div>
           <h1 className="text-6xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none">
-            Events at <span className="text-transparent bg-clip-text bg-linear-to-r from-slate-900 to-blue-600">ASTRA</span>
+            Events 
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-slate-500 font-medium leading-relaxed">
             From technical deep-dives to collaborative research sprints, explore the 
