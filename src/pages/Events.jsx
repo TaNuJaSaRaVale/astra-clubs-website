@@ -13,10 +13,10 @@ const events = [
     glow: "group-hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)]"
   },
   {
-    title: "Intra-Club ML Project Development",
-    desc: "A high-intensity building phase where club members collaborate on real-world ML models, focusing on data engineering and model optimization.",
+    title: "Club Service – ML Foundation",
+    desc: "A structured club service initiative focused on strengthening core Machine Learning foundations through guided sessions, conceptual clarity, and collaborative learning for all members.",
     status: "Planned",
-    type: "Workshop",
+    type: "Club Service",
     icon: <Timer className="w-5 h-5" />,
     color: "text-amber-600",
     bg: "bg-amber-50",
@@ -33,6 +33,7 @@ const events = [
     glow: "group-hover:shadow-[0_20px_40px_rgba(37,99,235,0.1)]"
   }
 ];
+
 
 export default function Events() {
   return (

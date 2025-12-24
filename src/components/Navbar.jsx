@@ -30,28 +30,30 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12">
 
-     {/* LOGOS */}
+    {/* LOGOS */}
 <div className="flex items-center gap-4 group">
-  
-  {/* ASTRA LOGO */}
+
+  {/* WCE LOGO — FIRST */}
   <img
-    src={logo}
-    alt="ASTRA Logo"
-    className="h-14 md:h-15 w-auto "
+    src={wceLogo}
+    alt="WCE Logo"
+    className="h-14 md:h-15 w-auto cursor-pointer"
     onClick={() => scrollToSection("home")}
   />
 
   {/* Divider */}
   <div className="hidden lg:block h-6 w-px bg-slate-200/40"></div>
 
-  {/* WCE LOGO (replaces text) */}
+  {/* ASTRA LOGO — SECOND */}
   <img
-    src={wceLogo}
-    alt="WCE Logo"
-    className="h-14 md:h-15 w-auto "
+    src={logo}
+    alt="ASTRA Logo"
+    className="h-14 md:h-15 w-auto cursor-pointer"
+    onClick={() => scrollToSection("home")}
   />
 
 </div>
+
 
 
         {/* NAV LINKS */}
