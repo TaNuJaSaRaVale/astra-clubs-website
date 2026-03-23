@@ -1,6 +1,6 @@
 export default function SwipeRow({ children }) {
   return (
-    <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+    <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2">
       {children}
     </div>
   );

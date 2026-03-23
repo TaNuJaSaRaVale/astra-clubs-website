@@ -1,47 +1,149 @@
 @import "tailwindcss";
 
+/* ================= CSS VARIABLES ================= */
+:root {
+  --accent: #6366f1;
+  --accent-light: #a5b4fc;
+  --accent-glow: rgba(99, 102, 241, 0.25);
+  --dark-bg: #080c18;
+  --dark-surface: #0d1220;
+}
+
 /* ================= BASE ================= */
 html, body {
-  /* Base color */
   background-color: #f8faff;
-  
-  /* 1. Multi-point Mesh Gradient (Soft Neural Glows) */
-  /* 2. Subtle Dot Pattern (Tech/Blueprint texture) */
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(224,100%,96%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(226,100%,94%,1) 0, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(220,100%,97%,1) 0, transparent 50%),
-    radial-gradient(at 50% 100%, hsla(225,100%,92%,0.5) 0, transparent 50%),
+  background-image:
+    radial-gradient(at 0% 0%,   hsla(224, 100%, 96%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%,  hsla(226, 100%, 94%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(220, 100%, 97%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(225, 100%, 92%, 0.5) 0, transparent 50%),
     radial-gradient(#6366f115 1px, transparent 1px);
-    
-  /* Grid size for the dot pattern */
   background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px;
-  
   min-height: 100vh;
-  color: #1e293b; /* Changed from light gray to slate-800 for readability on light bg */
+  color: #1e293b;
   scroll-behavior: smooth;
-  cursor: none;
+}
+
+/* ================= FONTS ================= */
+h1, h2, h3, h4 {
+  font-family: 'Syne', sans-serif;
+}
+body, p, span, div, input, textarea, button, a {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ================= CURSOR ================= */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 /* ================= SCROLLBAR ================= */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  scrollbar-width: none;
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #6366f140; border-radius: 99px; }
+
+/* ================= SCROLL PROGRESS ================= */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #a78bfa, #60a5fa);
+  z-index: 9999;
+  transition: width 0.08s linear;
+  pointer-events: none;
 }
 
-/* ================= CUSTOM CURSOR ================= */
-*{
-  cursor: auto;
-
-}
-
-/* ================= ENHANCED GLASS CARD ================= */
-/* Utility for your Team/Home cards to pop against the new bg */
+/* ================= GLASS CARD ================= */
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 20px 50px rgba(59, 130, 246, 0.08);
+}
+
+/* ================= LOADER ================= */
+.loader-bar {
+  animation: loader-fill 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes loader-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ================= SCROLL ANIMATIONS ================= */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.6s ease forwards; }
+
+/* ================= TYPEWRITER BLINK ================= */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.caret { animation: blink 1s step-end infinite; }
+
+/* ================= FLOATING ================= */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ================= GRADIENT ANIMATE ================= */
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease infinite;
+}
+
+/* ================= SCROLL SECTION OFFSET ================= */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ================= TIMELINE ================= */
+.timeline-line {
+  background: linear-gradient(to bottom, #10b981, #6366f1, #a78bfa, transparent);
+}
+
+/* ================= CARD FLIP ================= */
+.flip-card { perspective: 1000px; }
+.flip-card-inner {
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+  position: absolute;
+  inset: 0;
+}
+
+/* ================= GLOW PULSE ================= */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+  50%       { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6), 0 0 80px rgba(99, 102, 241, 0.2); }
+}
+
+/* ================= DOT PULSE ================= */
+@keyframes dot-pulse {
+  0%  { box-shadow: 0 0 0 0 var(--dot-color); }
+  70% { box-shadow: 0 0 0 8px transparent; }
+  100%{ box-shadow: 0 0 0 0 transparent; }
 }
