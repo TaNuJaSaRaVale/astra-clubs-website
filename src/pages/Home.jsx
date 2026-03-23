@@ -1,319 +1,346 @@
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
-/* ─── Neural Network Canvas ───────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   NEURAL CANVAS
+═══════════════════════════════════════════════ */
 function NeuralCanvas() {
   const canvasRef = useRef(null);
-
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let animId;
-    let W, H;
-
-    const resize = () => {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    };
+    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     window.addEventListener("resize", resize);
-
-    const N = 65;
-    const CONN = 140;
-    const pts = Array.from({ length: N }, () => ({
-      x:  Math.random() * W,
-      y:  Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.28,
-      vy: (Math.random() - 0.5) * 0.28,
-      r:  Math.random() * 1.6 + 0.4,
+    const COUNT = 55;
+    const particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.4,
     }));
-
     const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-
-      // Connections
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = i + 1; j < pts.length; j++) {
-          const dx   = pts[i].x - pts[j].x;
-          const dy   = pts[i].y - pts[j].y;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(148,130,255,0.75)";
+        ctx.fill();
+      });
+      for (let i = 0; i < COUNT; i++) {
+        for (let j = i + 1; j < COUNT; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONN) {
+          if (dist < 130) {
             ctx.beginPath();
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(99,102,241,${0.22 * (1 - dist / CONN)})`;
-            ctx.lineWidth   = 0.6;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(99,102,241,${0.18 * (1 - dist / 130)})`;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }
       }
-
-      // Nodes
-      pts.forEach((p) => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > W) p.vx *= -1;
-        if (p.y < 0 || p.y > H) p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(165,180,252,0.65)";
-        ctx.fill();
-      });
-
       animId = requestAnimationFrame(draw);
     };
-
     draw();
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
+    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
   }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{ opacity: 0.55 }}
-    />
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
 }
 
-/* ─── Typewriter ──────────────────────────────────────────── */
-function Typewriter({ words, speed = 75, pause = 1600 }) {
-  const [display,    setDisplay]    = useState("");
-  const [wordIdx,    setWordIdx]    = useState(0);
-  const [charIdx,    setCharIdx]    = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+/* ═══════════════════════════════════════════════
+   TYPEWRITER
+═══════════════════════════════════════════════ */
+const LINES = [
+  "build AI projects.",
+  "run workshops.",
+  "read research papers.",
+  "mentor each other.",
+  "explore neural networks.",
+];
 
+function Typewriter() {
+  const [lineIdx, setLineIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const [text, setText] = useState("");
   useEffect(() => {
-    const current = words[wordIdx];
+    const target = LINES[lineIdx];
     let timeout;
-
-    if (!isDeleting && charIdx < current.length) {
-      timeout = setTimeout(() => setCharIdx((c) => c + 1), speed);
-    } else if (!isDeleting && charIdx === current.length) {
-      timeout = setTimeout(() => setIsDeleting(true), pause);
-    } else if (isDeleting && charIdx > 0) {
-      timeout = setTimeout(() => setCharIdx((c) => c - 1), speed / 1.8);
-    } else {
-      timeout = setTimeout(() => {
-        setIsDeleting(false);
-        setWordIdx((i) => (i + 1) % words.length);
-      }, 0);
+    if (!deleting && charIdx < target.length) {
+      timeout = setTimeout(() => { setText(target.slice(0, charIdx + 1)); setCharIdx(c => c + 1); }, 60);
+    } else if (!deleting && charIdx === target.length) {
+      timeout = setTimeout(() => setDeleting(true), 1800);
+    } else if (deleting && charIdx > 0) {
+      timeout = setTimeout(() => { setText(target.slice(0, charIdx - 1)); setCharIdx(c => c - 1); }, 35);
+    } else if (deleting && charIdx === 0) {
+      setDeleting(false); setLineIdx(l => (l + 1) % LINES.length);
     }
-
-    setDisplay(current.substring(0, charIdx));
     return () => clearTimeout(timeout);
-  }, [charIdx, isDeleting, wordIdx, words, speed, pause]);
-
+  }, [charIdx, deleting, lineIdx]);
   return (
-    <>
-      {display}
-      <span className="caret" style={{ color: "#818cf8" }}>|</span>
-    </>
+    <span className="text-indigo-300 font-semibold">
+      We&nbsp;{text}<span className="animate-pulse text-indigo-400">|</span>
+    </span>
   );
 }
 
-/* ─── Scroll-triggered fade-up wrapper ───────────────────── */
+/* ═══════════════════════════════════════════════
+   FADE-UP WRAPPER
+═══════════════════════════════════════════════ */
 function FadeUp({ children, delay = 0, className = "" }) {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, y: 40 }}
+    <motion.div ref={ref} className={className}
+      initial={{ opacity: 0, y: 36 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}
-    >
+      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}>
       {children}
     </motion.div>
   );
 }
 
-/* ─── Feature cards data ──────────────────────────────────── */
-const features = [
-  { title: "Theoretical Foundations", desc: "Strengthening mathematical reasoning and conceptual understanding behind AI & ML algorithms.", dot: "#6366f1" },
-  { title: "Peer-to-Peer Learning",   desc: "Collaborative study groups, discussions, and mentorship driven by students for students.",   dot: "#8b5cf6" },
-  { title: "Hands-on Projects",       desc: "Applying AI & ML concepts to real-world problem statements through practical projects.",       dot: "#06b6d4" },
-  { title: "Workshops & Sessions",    desc: "Technical workshops, expert talks, and guided learning sessions on emerging AI technologies.", dot: "#10b981" },
-  { title: "Research Orientation",    desc: "Encouraging research mindset, paper reading, innovation, and exploration of advanced AI domains.", dot: "#f59e0b" },
-  { title: "Industry Readiness",      desc: "Bridging the gap between academics and industry expectations through skill development.",       dot: "#ec4899" },
+/* ═══════════════════════════════════════════════
+   ANIMATED COUNTER
+═══════════════════════════════════════════════ */
+function Counter({ to, suffix = "" }) {
+  const [val, setVal] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = Math.ceil(to / 60);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= to) { setVal(to); clearInterval(timer); } else setVal(start);
+    }, 24);
+    return () => clearInterval(timer);
+  }, [inView, to]);
+  return <span ref={ref}>{val}{suffix}</span>;
+}
+
+/* ═══════════════════════════════════════════════
+   MARQUEE STRIP
+═══════════════════════════════════════════════ */
+const TAGS = [
+  "🧠 Deep Learning","👁 Computer Vision","💬 NLP","🤖 Generative AI",
+  "📊 Data Science","🔁 Reinforcement Learning","🧬 Neural Networks",
+  "📡 MLOps","🔬 Research","⚡ PyTorch","🐍 Python","🌐 LLMs",
+  "🧩 Transformers","🎯 Feature Engineering","🗺 RAG",
 ];
 
-/* ─── Home ────────────────────────────────────────────────── */
-export default function Home() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-
-  const stagger = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.14, delayChildren: 0.35 } },
-  };
-  const item = {
-    hidden:  { opacity: 0, y: 32 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-  };
-
+function Marquee() {
+  const doubled = [...TAGS, ...TAGS];
   return (
-    <section id="home">
+    <div className="relative overflow-hidden py-4 border-y border-white/5">
+      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[#080c18] to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[#080c18] to-transparent pointer-events-none" />
+      <motion.div className="flex gap-6 whitespace-nowrap"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}>
+        {doubled.map((tag, i) => (
+          <span key={i}
+            className="text-sm font-medium text-gray-400 px-4 py-1.5 rounded-full
+              border border-white/8 bg-white/3 hover:border-indigo-500/40
+              hover:text-indigo-300 transition-colors cursor-default flex-shrink-0">
+            {tag}
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
-      {/* ════════════ DARK HERO ════════════ */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-           style={{ background: "#080c18" }}>
+/* ═══════════════════════════════════════════════
+   ANNOUNCEMENT BANNER
+═══════════════════════════════════════════════ */
+function AnnouncementBanner() {
+  const [visible, setVisible] = useState(true);
+  if (!visible) return null;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -40 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-40 flex items-center justify-center gap-3 px-4 py-2.5"
+      style={{
+        background: "linear-gradient(90deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.15) 50%, rgba(99,102,241,0.12) 100%)",
+        borderBottom: "0.5px solid rgba(99,102,241,0.25)",
+      }}
+    >
+      <span className="relative flex h-2 w-2 flex-shrink-0">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
+      </span>
 
-        {/* Gradient orbs */}
-        <div className="absolute pointer-events-none"
-          style={{ top: "20%", left: "15%", width: 520, height: 520,
-            background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)",
-            filter: "blur(60px)" }} />
-        <div className="absolute pointer-events-none"
-          style={{ bottom: "20%", right: "10%", width: 400, height: 400,
-            background: "radial-gradient(circle, rgba(167,139,250,0.14) 0%, transparent 70%)",
-            filter: "blur(60px)" }} />
-        <div className="absolute pointer-events-none"
-          style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700,
-            background: "radial-gradient(circle, rgba(30,58,138,0.12) 0%, transparent 70%)",
-            filter: "blur(80px)" }} />
+      <span className="text-indigo-200 font-medium text-xs sm:text-sm">
+        ✦ Next up:{" "}
+        <span className="text-white font-semibold">ML Foundation Club Service</span>
+        <span className="hidden sm:inline text-indigo-300"> — Registrations opening soon</span>
+      </span>
 
-        {/* Neural canvas */}
-        <NeuralCanvas />
+      <a
+        href="#events"
+        onClick={(e) => { e.preventDefault(); document.getElementById("events")?.scrollIntoView({ behavior: "smooth" }); }}
+        className="flex-shrink-0 text-xs font-semibold px-3 py-1 rounded-full
+          bg-indigo-500/20 text-indigo-300 border border-indigo-500/30
+          hover:bg-indigo-500/30 hover:text-white transition-all"
+      >
+        Learn more →
+      </a>
 
-        {/* Top edge line */}
-        <div className="absolute top-0 left-0 right-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(99,102,241,0.4), transparent)" }} />
+      <button
+        onClick={() => setVisible(false)}
+        className="absolute right-4 text-gray-500 hover:text-white transition-colors text-xl leading-none"
+        aria-label="Dismiss"
+      >
+        ×
+      </button>
+    </motion.div>
+  );
+}
 
-        {/* Content */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 text-center px-6 max-w-5xl mx-auto"
-        >
-          {/* Pill badge */}
-          <motion.div variants={item}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-medium tracking-widest uppercase mb-10"
-            style={{ borderColor: "rgba(99,102,241,0.35)", background: "rgba(99,102,241,0.1)", color: "#a5b4fc" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#818cf8" }} />
-            AIML Department · WCE Sangli
-          </motion.div>
+/* ═══════════════════════════════════════════════
+   SOCIAL PROOF
+═══════════════════════════════════════════════ */
+const AVATARS = [
+  { initials: "RD", color: "#6366f1" },
+  { initials: "PK", color: "#8b5cf6" },
+  { initials: "AM", color: "#06b6d4" },
+  { initials: "SR", color: "#10b981" },
+  { initials: "VK", color: "#f59e0b" },
+];
 
-          {/* Giant title */}
-          <motion.h1
-            variants={item}
-            className="font-black leading-none tracking-tighter mb-6 select-none"
-            style={{
-              fontFamily: "Syne, sans-serif",
-              fontSize: "clamp(5.5rem, 18vw, 14rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c7d2fe 30%, #818cf8 65%, #6366f1 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            ASTRA
-          </motion.h1>
-
-          {/* Full form */}
-          <motion.p
-            variants={item}
-            className="font-medium tracking-[0.22em] uppercase mb-8"
-            style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.875rem)", color: "rgba(165,180,252,0.75)" }}
-          >
-            Association of Students for Theoretical Reasoning in AI
-          </motion.p>
-
-          {/* Typewriter */}
-          <motion.p
-            variants={item}
-            className="font-light mb-12"
-            style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", color: "rgba(203,213,225,0.9)", minHeight: "2.2rem" }}
-          >
-            We{" "}
-            <span style={{ color: "#fff", fontWeight: 500 }}>
-              <Typewriter words={[
-                "build AI projects.",
-                "run workshops.",
-                "read research papers.",
-                "learn together.",
-                "shape the future.",
-              ]} />
-            </span>
-          </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => scrollTo("contact")}
-              className="px-9 py-4 rounded-xl font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
-              style={{
-                background: "#6366f1",
-                boxShadow: "0 0 0 0 rgba(99,102,241,0.4)",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px rgba(99,102,241,0.5)"; e.currentTarget.style.background = "#5558e8"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 0 rgba(99,102,241,0.4)"; e.currentTarget.style.background = "#6366f1"; }}
-            >
-              Join ASTRA
-            </button>
-            <button
-              onClick={() => scrollTo("events")}
-              className="px-9 py-4 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-0.5"
-              style={{ border: "1px solid rgba(148,163,184,0.3)", color: "rgba(203,213,225,0.9)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(99,102,241,0.7)"; e.currentTarget.style.color = "#fff"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(148,163,184,0.3)"; e.currentTarget.style.color = "rgba(203,213,225,0.9)"; }}
-            >
-              Explore Events
-            </button>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.8 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <p className="text-xs tracking-[0.3em] uppercase" style={{ color: "rgba(255,255,255,0.2)" }}>Scroll</p>
-          <motion.div
-            animate={{ y: [0, 7, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            className="w-px h-10 rounded-full"
-            style={{ background: "linear-gradient(to bottom, #6366f1, transparent)" }}
-          />
-        </motion.div>
+function SocialProof() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.85, duration: 0.5 }}
+      className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2"
+    >
+      <div className="flex items-center">
+        {AVATARS.map((av, i) => (
+          <div key={i}
+            className="w-8 h-8 rounded-full border-2 border-[#080c18] flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+            style={{ background: av.color, marginLeft: i === 0 ? 0 : "-10px", zIndex: AVATARS.length - i }}>
+            {av.initials}
+          </div>
+        ))}
+        <div className="w-8 h-8 rounded-full border-2 border-[#080c18] flex items-center justify-center text-indigo-300 text-xs font-bold bg-indigo-900/60 flex-shrink-0"
+          style={{ marginLeft: "-10px" }}>
+          +115
+        </div>
       </div>
 
-      {/* ════════════ WHAT WE DO ════════════ */}
-      <div className="bg-[#f8faff] py-36 px-6">
-        <div className="max-w-6xl mx-auto space-y-20">
+      <div className="flex items-center gap-2">
+        <div className="flex gap-0.5">
+          {[...Array(5)].map((_, i) => (
+            <svg key={i} className="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          ))}
+        </div>
+        <span className="text-xs text-gray-400">
+          <span className="text-white font-semibold">120+ students</span> already part of ASTRA
+        </span>
+      </div>
+    </motion.div>
+  );
+}
 
-          <FadeUp className="text-center space-y-5">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-indigo-100 bg-white shadow-sm text-indigo-600 text-xs font-bold uppercase tracking-widest">
-              What We Do
-            </div>
-            <h2 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tight">
-              Everything at ASTRA
-            </h2>
-            <p className="text-slate-500 max-w-xl mx-auto text-lg">
-              From deep theory to real-world applications — we cover the full spectrum of AI & ML learning.
-            </p>
-          </FadeUp>
+/* ═══════════════════════════════════════════════
+   FLOATING JOIN BUTTON
+═══════════════════════════════════════════════ */
+function FloatingJoinButton() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.6);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 20 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3
+            text-white text-sm font-bold rounded-full"
+          style={{
+            background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+            animation: "floatPulse 2.5s ease-in-out infinite",
+          }}
+        >
+          <span>✦</span> Join ASTRA
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((item, i) => (
-              <FadeUp key={i} delay={i * 0.07}>
-                <div className="glass-card rounded-2xl p-7 hover:-translate-y-1.5 hover:shadow-xl transition-all duration-400 group">
+/* ═══════════════════════════════════════════════
+   LEARNING PATH
+═══════════════════════════════════════════════ */
+const PATH_STEPS = [
+  { num: "01", title: "Join",     desc: "Become a member of ASTRA at WCE",                          color: "#6366f1", glow: "rgba(99,102,241,0.3)"  },
+  { num: "02", title: "Learn",    desc: "Attend workshops, club services & peer discussions",         color: "#8b5cf6", glow: "rgba(139,92,246,0.3)"  },
+  { num: "03", title: "Build",    desc: "Work on real AI projects and solve real-world problems",     color: "#06b6d4", glow: "rgba(6,182,212,0.3)"   },
+  { num: "04", title: "Research", desc: "Read papers, innovate, and explore new AI frontiers",       color: "#10b981", glow: "rgba(16,185,129,0.3)"  },
+];
+
+function LearningPath() {
+  return (
+    <div className="py-24 px-6">
+      <FadeUp className="text-center mb-16 space-y-3">
+        <p className="text-xs text-indigo-400 tracking-[0.3em] uppercase font-semibold">Your Journey</p>
+        <h2 className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: "Syne, sans-serif" }}>
+          Your ASTRA Path
+        </h2>
+        <p className="text-gray-500 max-w-md mx-auto text-sm leading-relaxed">
+          From curious student to AI practitioner — here's how ASTRA takes you there.
+        </p>
+      </FadeUp>
+
+      {/* Desktop */}
+      <div className="hidden md:block max-w-5xl mx-auto">
+        <div className="relative">
+          <div className="absolute top-10 left-[12.5%] right-[12.5%] h-px"
+            style={{ background: "linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4, #10b981)" }} />
+          <div className="grid grid-cols-4 gap-6 relative z-10">
+            {PATH_STEPS.map((step, i) => (
+              <FadeUp key={i} delay={i * 0.12}>
+                <div className="flex flex-col items-center text-center group">
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: `${item.dot}15`, border: `1px solid ${item.dot}30` }}
+                    className="w-20 h-20 rounded-full flex items-center justify-center mb-6 border-2 transition-all duration-500 group-hover:scale-110"
+                    style={{
+                      borderColor: step.color,
+                      background: `radial-gradient(circle, ${step.glow} 0%, rgba(8,12,24,0.95) 70%)`,
+                    }}
                   >
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ background: item.dot }} />
+                    <span className="text-2xl font-black" style={{ color: step.color, fontFamily: "Syne, sans-serif" }}>
+                      {step.num}
+                    </span>
                   </div>
-                  <h3 className="text-lg font-bold mb-2 text-slate-900">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="text-white font-bold text-xl mb-2" style={{ fontFamily: "Syne, sans-serif" }}>
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
                 </div>
               </FadeUp>
             ))}
@@ -321,49 +348,301 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ════════════ CTA BANNER ════════════ */}
-      <FadeUp className="px-6 pb-32">
-        <div className="relative rounded-3xl overflow-hidden" style={{ background: "#080c18" }}>
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.25) 0%, transparent 65%)" }} />
-          {/* Top line */}
-          <div className="absolute top-0 left-0 right-0 h-px"
-            style={{ background: "linear-gradient(90deg, transparent 10%, rgba(99,102,241,0.5) 50%, transparent 90%)" }} />
+      {/* Mobile */}
+      <div className="md:hidden max-w-sm mx-auto">
+        {PATH_STEPS.map((step, i) => (
+          <FadeUp key={i} delay={i * 0.1}>
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center border-2"
+                  style={{ borderColor: step.color, background: `radial-gradient(circle, ${step.glow} 0%, rgba(8,12,24,0.95) 70%)` }}>
+                  <span className="text-sm font-black" style={{ color: step.color }}>{step.num}</span>
+                </div>
+                {i < PATH_STEPS.length - 1 && (
+                  <div className="w-px my-2" style={{ background: `linear-gradient(to bottom, ${step.color}, ${PATH_STEPS[i + 1].color})`, minHeight: "40px" }} />
+                )}
+              </div>
+              <div className="pb-8">
+                <h3 className="text-white font-bold text-lg" style={{ fontFamily: "Syne, sans-serif" }}>{step.title}</h3>
+                <p className="text-gray-500 text-sm mt-1 leading-relaxed">{step.desc}</p>
+              </div>
+            </div>
+          </FadeUp>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-          <div className="relative z-10 py-24 px-6 text-center">
-            <h2
-              className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
-              Be a Part of ASTRA
-            </h2>
-            <p className="max-w-xl mx-auto text-lg mb-10" style={{ color: "rgba(148,163,184,0.9)" }}>
-              Join a community that believes in deep thinking, collaborative learning, and building intelligent solutions for the future.
-            </p>
-            <div className="flex justify-center gap-4 flex-wrap">
-              <button
-                onClick={() => scrollTo("contact")}
-                className="px-9 py-4 rounded-xl font-semibold text-white transition-all hover:-translate-y-0.5"
-                style={{ background: "#6366f1" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 28px rgba(99,102,241,0.5)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
-              >
-                Join Now
-              </button>
-              <button
-                onClick={() => scrollTo("events")}
-                className="px-9 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5"
-                style={{ border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.8)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(99,102,241,0.6)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; }}
-              >
-                Explore Events
-              </button>
+/* ═══════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════ */
+const TESTIMONIALS = [
+  { quote: "ASTRA completely changed how I approach AI. The peer discussions go way deeper than classroom lectures.",         name: "Rohan Deshmukh", role: "3rd Year, AIML", initials: "RD", color: "#6366f1" },
+  { quote: "The ML Foundation club service helped me finally understand backpropagation. The mentors here are incredible.",   name: "Priya Kulkarni", role: "2nd Year, AIML", initials: "PK", color: "#8b5cf6" },
+  { quote: "Being part of ASTRA pushed me to read my first research paper. Now I read one every week.",                       name: "Aarav Mane",     role: "3rd Year, AIML", initials: "AM", color: "#06b6d4" },
+];
+
+function Testimonials() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setActive(a => (a + 1) % TESTIMONIALS.length), 4500);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <FadeUp className="max-w-3xl mx-auto text-center space-y-8">
+      <div className="text-6xl font-black text-indigo-900 leading-none select-none">"</div>
+      <div className="relative min-h-[100px] flex items-center justify-center">
+        <AnimatePresence mode="wait">
+          <motion.p key={active}
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-xl md:text-2xl text-gray-200 font-light leading-relaxed">
+            {TESTIMONIALS[active].quote}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+      <AnimatePresence mode="wait">
+        <motion.div key={active} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }} className="flex items-center justify-center gap-3">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
+            style={{ background: TESTIMONIALS[active].color }}>
+            {TESTIMONIALS[active].initials}
+          </div>
+          <div className="text-left">
+            <p className="text-white font-semibold text-sm">{TESTIMONIALS[active].name}</p>
+            <p className="text-gray-500 text-xs">{TESTIMONIALS[active].role}</p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+      <div className="flex justify-center gap-2">
+        {TESTIMONIALS.map((_, i) => (
+          <button key={i} onClick={() => setActive(i)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-8 bg-indigo-400" : "w-1.5 bg-white/20 hover:bg-white/40"}`} />
+        ))}
+      </div>
+    </FadeUp>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   WHAT WE DO CARDS
+═══════════════════════════════════════════════ */
+const CARDS = [
+  { title: "Theoretical Foundations", desc: "Strengthening mathematical reasoning and conceptual understanding behind AI & ML algorithms.", icon: "🧠" },
+  { title: "Peer-to-Peer Learning",   desc: "Collaborative study groups, discussions, and mentorship driven by students for students.",       icon: "🤝" },
+  { title: "Hands-on Projects",       desc: "Applying AI & ML concepts to real-world problem statements through practical projects.",          icon: "⚙️" },
+  { title: "Workshops & Sessions",    desc: "Technical workshops, expert talks, and guided learning sessions on emerging AI technologies.",     icon: "🎤" },
+  { title: "Research Orientation",    desc: "Encouraging research mindset, paper reading, innovation, and exploration of advanced AI domains.", icon: "🔬" },
+  { title: "Industry Readiness",      desc: "Bridging the gap between academics and industry through skill development and exposure.",          icon: "🚀" },
+];
+
+/* ═══════════════════════════════════════════════
+   MAIN
+═══════════════════════════════════════════════ */
+export default function Home() {
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
+  return (
+    <section id="home" className="relative" style={{ background: "#080c18" }}>
+
+      {/* Pulse keyframe */}
+      <style>{`@keyframes floatPulse{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,0.5)}50%{box-shadow:0 0 0 14px rgba(99,102,241,0)}}`}</style>
+
+      {/* Floating button */}
+      <FloatingJoinButton />
+
+      {/* ── ANNOUNCEMENT BANNER ─────────────── */}
+      <AnnouncementBanner />
+
+      {/* ── HERO ────────────────────────────── */}
+      <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
+        <NeuralCanvas />
+
+        {/* Nebula glows */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse, #6366f1 0%, transparent 70%)" }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full blur-[90px] opacity-15 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse, #a78bfa 0%, transparent 70%)" }} />
+
+        <div className="relative z-10 text-center max-w-5xl mx-auto space-y-6 pt-16">
+
+          {/* Badge */}
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-semibold tracking-widest uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            WCE Sangli · AIML Department
+          </motion.div>
+
+          {/* ASTRA */}
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="text-[clamp(3.5rem,11vw,7.5rem)] font-black leading-none tracking-tight"
+            style={{
+              fontFamily: "Syne, sans-serif",
+              background: "linear-gradient(135deg, #e0e7ff 20%, #818cf8 50%, #a78bfa 80%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}>
+            ASTRA
+          </motion.h1>
+
+          {/* Full form */}
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35, duration: 0.6 }}
+            className="text-xs sm:text-sm tracking-[0.25em] uppercase text-gray-400 font-medium">
+            Association of Students for Theoretical Reasoning in AI
+          </motion.p>
+
+          {/* Typewriter */}
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.6 }}
+            className="text-base sm:text-lg text-gray-400 h-7">
+            <Typewriter />
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+            <button onClick={() => scrollTo("contact")}
+              className="px-8 py-3.5 rounded-2xl font-semibold text-white text-sm
+                transition-all duration-300 hover:scale-105 active:scale-95
+                hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]"
+              style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
+              Join ASTRA ✦
+            </button>
+            <button onClick={() => scrollTo("events")}
+              className="px-8 py-3.5 rounded-2xl font-semibold text-sm border border-white/15
+                text-gray-300 hover:border-indigo-500/50 hover:text-white hover:bg-white/5 transition-all duration-300">
+              Explore Events →
+            </button>
+          </motion.div>
+
+          {/* Social proof */}
+          <SocialProof />
+        </div>
+
+        {/* Scroll hint */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <span className="text-xs text-gray-600 tracking-widest uppercase">Scroll</span>
+          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.4, repeat: Infinity }}
+            className="w-px h-8 bg-gradient-to-b from-indigo-500/60 to-transparent" />
+        </motion.div>
+      </div>
+
+      {/* ── MARQUEE ─────────────────────────── */}
+      <Marquee />
+
+      {/* ── STATS ───────────────────────────── */}
+      <div className="relative py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 50% 50%, #6366f1 0%, transparent 70%)" }} />
+        <FadeUp className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-white/10">
+            {[
+              { label: "Members",   to: 120, suffix: "+" },
+              { label: "Events",    to: 8,   suffix: ""  },
+              { label: "Projects",  to: 15,  suffix: "+" },
+              { label: "Workshops", to: 6,   suffix: ""  },
+            ].map(({ label, to, suffix }) => (
+              <div key={label} className="text-center px-6 py-4">
+                <div className="text-4xl md:text-5xl font-black text-white mb-1" style={{ fontFamily: "Syne, sans-serif" }}>
+                  <Counter to={to} suffix={suffix} />
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-widest font-medium">{label}</div>
+              </div>
+            ))}
+          </div>
+        </FadeUp>
+      </div>
+
+      {/* ── WHAT WE DO ──────────────────────── */}
+      <div className="py-24 px-6">
+        <FadeUp className="text-center mb-16 space-y-3">
+          <p className="text-xs text-indigo-400 tracking-[0.3em] uppercase font-semibold">Our Mission</p>
+          <h2 className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: "Syne, sans-serif" }}>
+            What We Do at ASTRA
+          </h2>
+        </FadeUp>
+        <div className="max-w-6xl mx-auto grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {CARDS.map((card, i) => (
+            <FadeUp key={i} delay={i * 0.08}>
+              <div className="group relative p-7 rounded-3xl border border-white/8 bg-white/3
+                hover:bg-white/6 hover:border-indigo-500/30 transition-all duration-500
+                hover:-translate-y-1.5 hover:shadow-[0_20px_60px_rgba(99,102,241,0.12)] overflow-hidden h-full">
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl"
+                  style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.08) 0%, transparent 70%)" }} />
+                <div className="text-3xl mb-4">{card.icon}</div>
+                <h3 className="text-white font-bold text-lg mb-2">{card.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+
+      {/* ── LEARNING PATH ───────────────────── */}
+      <LearningPath />
+
+      {/* ── TESTIMONIALS ────────────────────── */}
+      <div className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10"
+          style={{ background: "radial-gradient(ellipse at 50% 100%, #8b5cf6 0%, transparent 65%)" }} />
+        <FadeUp className="text-center mb-14 space-y-3">
+          <p className="text-xs text-indigo-400 tracking-[0.3em] uppercase font-semibold">From Our Members</p>
+          <h2 className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: "Syne, sans-serif" }}>
+            What They Say
+          </h2>
+        </FadeUp>
+        <Testimonials />
+      </div>
+
+      {/* ── CTA ─────────────────────────────── */}
+      <div className="py-24 px-6">
+        <FadeUp>
+          <div className="max-w-3xl mx-auto text-center relative rounded-[2.5rem] p-14 overflow-hidden border border-white/8"
+            style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.08) 100%)" }}>
+            {[...Array(14)].map((_, i) => (
+              <div key={i} className="absolute rounded-full bg-white animate-pulse pointer-events-none"
+                style={{
+                  width: (Math.sin(i * 7) * 1.2 + 1.5) + "px",
+                  height: (Math.sin(i * 7) * 1.2 + 1.5) + "px",
+                  top: ((i * 37 + 11) % 97) + "%",
+                  left: ((i * 53 + 17) % 97) + "%",
+                  opacity: Math.cos(i * 3) * 0.2 + 0.3,
+                  animationDelay: (i * 0.4) + "s",
+                  animationDuration: (i % 3 + 2) + "s",
+                }} />
+            ))}
+            <div className="relative z-10 space-y-6">
+              <div className="text-4xl">✦</div>
+              <h2 className="text-3xl md:text-4xl font-black text-white" style={{ fontFamily: "Syne, sans-serif" }}>
+                Be Part of ASTRA
+              </h2>
+              <p className="text-gray-400 max-w-lg mx-auto leading-relaxed">
+                Join a community that believes in deep thinking, collaborative learning,
+                and building intelligent solutions for the future.
+              </p>
+              <div className="flex justify-center gap-4 flex-wrap">
+                <button onClick={() => scrollTo("contact")}
+                  className="px-8 py-3.5 rounded-2xl font-semibold text-white text-sm
+                    transition-all duration-300 hover:scale-105 active:scale-95
+                    hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]"
+                  style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
+                  Join Now ✦
+                </button>
+                <button onClick={() => scrollTo("events")}
+                  className="px-8 py-3.5 rounded-2xl font-semibold text-sm border border-white/15
+                    text-gray-300 hover:border-indigo-500/50 hover:text-white hover:bg-white/5 transition-all duration-300">
+                  Explore Events →
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </FadeUp>
+        </FadeUp>
+      </div>
 
     </section>
   );
