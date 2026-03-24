@@ -1,5 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  FlaskConical,
+  Users,
+  Wrench,
+  MonitorPlay,
+  BookOpen,
+  Briefcase,
+} from "lucide-react";
 
 /* ═══════════════════════════════════════════════
    NEURAL CANVAS
@@ -111,33 +119,13 @@ function FadeUp({ children, delay = 0, className = "" }) {
 }
 
 /* ═══════════════════════════════════════════════
-   ANIMATED COUNTER
-═══════════════════════════════════════════════ */
-function Counter({ to, suffix = "" }) {
-  const [val, setVal] = useState(0);
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const step = Math.ceil(to / 60);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= to) { setVal(to); clearInterval(timer); } else setVal(start);
-    }, 24);
-    return () => clearInterval(timer);
-  }, [inView, to]);
-  return <span ref={ref}>{val}{suffix}</span>;
-}
-
-/* ═══════════════════════════════════════════════
    MARQUEE STRIP
 ═══════════════════════════════════════════════ */
 const TAGS = [
-  "🧠 Deep Learning","👁 Computer Vision","💬 NLP","🤖 Generative AI",
-  "📊 Data Science","🔁 Reinforcement Learning","🧬 Neural Networks",
-  "📡 MLOps","🔬 Research","⚡ PyTorch","🐍 Python","🌐 LLMs",
-  "🧩 Transformers","🎯 Feature Engineering","🗺 RAG",
+  "Deep Learning","Computer Vision","NLP","Generative AI",
+  "Data Science","Reinforcement Learning","Neural Networks",
+  "MLOps","Research","PyTorch","Python","LLMs",
+  "Transformers","Feature Engineering","RAG",
 ];
 
 function Marquee() {
@@ -146,14 +134,15 @@ function Marquee() {
     <div className="relative overflow-hidden py-4 border-y border-white/5">
       <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[#080c18] to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[#080c18] to-transparent pointer-events-none" />
-      <motion.div className="flex gap-6 whitespace-nowrap"
+      <motion.div className="flex gap-5 whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}>
+        transition={{ duration: 32, repeat: Infinity, ease: "linear" }}>
         {doubled.map((tag, i) => (
           <span key={i}
-            className="text-sm font-medium text-gray-400 px-4 py-1.5 rounded-full
-              border border-white/8 bg-white/3 hover:border-indigo-500/40
-              hover:text-indigo-300 transition-colors cursor-default flex-shrink-0">
+            className="text-xs font-semibold tracking-widest uppercase text-gray-500
+              px-4 py-1.5 rounded-full border border-white/6 bg-white/2
+              hover:border-indigo-500/30 hover:text-indigo-400
+              transition-colors cursor-default flex-shrink-0">
             {tag}
           </span>
         ))}
@@ -176,8 +165,8 @@ function AnnouncementBanner() {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="relative z-40 flex items-center justify-center gap-3 px-4 py-2.5"
       style={{
-        background: "linear-gradient(90deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.15) 50%, rgba(99,102,241,0.12) 100%)",
-        borderBottom: "0.5px solid rgba(99,102,241,0.25)",
+        background: "linear-gradient(90deg, rgba(99,102,241,0.10) 0%, rgba(139,92,246,0.14) 50%, rgba(99,102,241,0.10) 100%)",
+        borderBottom: "0.5px solid rgba(99,102,241,0.2)",
       }}
     >
       <span className="relative flex h-2 w-2 flex-shrink-0">
@@ -186,24 +175,24 @@ function AnnouncementBanner() {
       </span>
 
       <span className="text-indigo-200 font-medium text-xs sm:text-sm">
-        ✦ Next up:{" "}
-        <span className="text-white font-semibold">ML Foundation Club Service</span>
-        <span className="hidden sm:inline text-indigo-300"> — Registrations opening soon</span>
+        Next up:{" "}
+        <span className="text-white font-semibold">ML Club Service</span>
+        <span className="hidden sm:inline text-indigo-400"> - Registrations opening soon</span>
       </span>
 
       <a
         href="#events"
         onClick={(e) => { e.preventDefault(); document.getElementById("events")?.scrollIntoView({ behavior: "smooth" }); }}
         className="flex-shrink-0 text-xs font-semibold px-3 py-1 rounded-full
-          bg-indigo-500/20 text-indigo-300 border border-indigo-500/30
-          hover:bg-indigo-500/30 hover:text-white transition-all"
+          bg-indigo-500/15 text-indigo-300 border border-indigo-500/25
+          hover:bg-indigo-500/25 hover:text-white transition-all"
       >
         Learn more →
       </a>
 
       <button
         onClick={() => setVisible(false)}
-        className="absolute right-4 text-gray-500 hover:text-white transition-colors text-xl leading-none"
+        className="absolute right-4 text-gray-600 hover:text-white transition-colors text-xl leading-none"
         aria-label="Dismiss"
       >
         ×
@@ -216,11 +205,11 @@ function AnnouncementBanner() {
    SOCIAL PROOF
 ═══════════════════════════════════════════════ */
 const AVATARS = [
-  { initials: "RD", color: "#6366f1" },
-  { initials: "PK", color: "#8b5cf6" },
-  { initials: "AM", color: "#06b6d4" },
-  { initials: "SR", color: "#10b981" },
-  { initials: "VK", color: "#f59e0b" },
+  { initials: "AR", color: "#6366f1" },
+  { initials: "SH", color: "#8b5cf6" },
+  { initials: "PN", color: "#06b6d4" },
+  { initials: "TS", color: "#10b981" },
+  { initials: "NP", color: "#f59e0b" },
 ];
 
 function SocialProof() {
@@ -239,7 +228,8 @@ function SocialProof() {
             {av.initials}
           </div>
         ))}
-        <div className="w-8 h-8 rounded-full border-2 border-[#080c18] flex items-center justify-center text-indigo-300 text-xs font-bold bg-indigo-900/60 flex-shrink-0"
+        <div className="w-8 h-8 rounded-full border-2 border-[#080c18] flex items-center justify-center
+          text-indigo-300 text-xs font-bold bg-indigo-900/60 flex-shrink-0"
           style={{ marginLeft: "-10px" }}>
           +115
         </div>
@@ -254,7 +244,7 @@ function SocialProof() {
           ))}
         </div>
         <span className="text-xs text-gray-400">
-          <span className="text-white font-semibold">120+ students</span> already part of ASTRA
+          <span className="text-white font-semibold">100+ students</span> already part of ASTRA
         </span>
       </div>
     </motion.div>
@@ -287,7 +277,7 @@ function FloatingJoinButton() {
             animation: "floatPulse 2.5s ease-in-out infinite",
           }}
         >
-          <span>✦</span> Join ASTRA
+          ✦ Join ASTRA
         </motion.button>
       )}
     </AnimatePresence>
@@ -298,10 +288,10 @@ function FloatingJoinButton() {
    LEARNING PATH
 ═══════════════════════════════════════════════ */
 const PATH_STEPS = [
-  { num: "01", title: "Join",     desc: "Become a member of ASTRA at WCE",                          color: "#6366f1", glow: "rgba(99,102,241,0.3)"  },
-  { num: "02", title: "Learn",    desc: "Attend workshops, club services & peer discussions",         color: "#8b5cf6", glow: "rgba(139,92,246,0.3)"  },
-  { num: "03", title: "Build",    desc: "Work on real AI projects and solve real-world problems",     color: "#06b6d4", glow: "rgba(6,182,212,0.3)"   },
-  { num: "04", title: "Research", desc: "Read papers, innovate, and explore new AI frontiers",       color: "#10b981", glow: "rgba(16,185,129,0.3)"  },
+  { num: "01", title: "Join",     desc: "Become a member of ASTRA at WCE",                       color: "#6366f1", glow: "rgba(99,102,241,0.25)"  },
+  { num: "02", title: "Learn",    desc: "Attend workshops, club services & peer discussions",      color: "#8b5cf6", glow: "rgba(139,92,246,0.25)"  },
+  { num: "03", title: "Build",    desc: "Work on real AI projects and solve real-world problems",  color: "#06b6d4", glow: "rgba(6,182,212,0.25)"   },
+  { num: "04", title: "Research", desc: "Read papers, innovate, and explore new AI frontiers",    color: "#10b981", glow: "rgba(16,185,129,0.25)"  },
 ];
 
 function LearningPath() {
@@ -313,7 +303,7 @@ function LearningPath() {
           Your ASTRA Path
         </h2>
         <p className="text-gray-500 max-w-md mx-auto text-sm leading-relaxed">
-          From curious student to AI practitioner — here's how ASTRA takes you there.
+          From curious student to AI practitioner - here's how ASTRA takes you there.
         </p>
       </FadeUp>
 
@@ -359,7 +349,8 @@ function LearningPath() {
                   <span className="text-sm font-black" style={{ color: step.color }}>{step.num}</span>
                 </div>
                 {i < PATH_STEPS.length - 1 && (
-                  <div className="w-px my-2" style={{ background: `linear-gradient(to bottom, ${step.color}, ${PATH_STEPS[i + 1].color})`, minHeight: "40px" }} />
+                  <div className="w-px my-2"
+                    style={{ background: `linear-gradient(to bottom, ${step.color}, ${PATH_STEPS[i + 1].color})`, minHeight: "40px" }} />
                 )}
               </div>
               <div className="pb-8">
@@ -378,9 +369,9 @@ function LearningPath() {
    TESTIMONIALS
 ═══════════════════════════════════════════════ */
 const TESTIMONIALS = [
-  { quote: "ASTRA completely changed how I approach AI. The peer discussions go way deeper than classroom lectures.",         name: "Rohan Deshmukh", role: "3rd Year, AIML", initials: "RD", color: "#6366f1" },
-  { quote: "The ML Foundation club service helped me finally understand backpropagation. The mentors here are incredible.",   name: "Priya Kulkarni", role: "2nd Year, AIML", initials: "PK", color: "#8b5cf6" },
-  { quote: "Being part of ASTRA pushed me to read my first research paper. Now I read one every week.",                       name: "Aarav Mane",     role: "3rd Year, AIML", initials: "AM", color: "#06b6d4" },
+  { quote: "ASTRA completely changed how I approach AI. The peer discussions go way deeper than classroom lectures.",       name: "Rohan Deshmukh", role: "3rd Year, AIML", initials: "RD", color: "#6366f1" },
+  { quote: "The ML Foundation club service helped me improve my communication skills.", name: "Tanuja Saravale", role: "2nd Year, AIML", initials: "TS", color: "#8b5cf6" },
+  { quote: "Being part of ASTRA pushed me to read my first research paper. Now I read one every week.",                     name: "Aarav Mane",     role: "3rd Year, AIML", initials: "AM", color: "#06b6d4" },
 ];
 
 function Testimonials() {
@@ -418,7 +409,9 @@ function Testimonials() {
       <div className="flex justify-center gap-2">
         {TESTIMONIALS.map((_, i) => (
           <button key={i} onClick={() => setActive(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-8 bg-indigo-400" : "w-1.5 bg-white/20 hover:bg-white/40"}`} />
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === active ? "w-8 bg-indigo-400" : "w-1.5 bg-white/20 hover:bg-white/40"
+            }`} />
         ))}
       </div>
     </FadeUp>
@@ -426,15 +419,39 @@ function Testimonials() {
 }
 
 /* ═══════════════════════════════════════════════
-   WHAT WE DO CARDS
+   WHAT WE DO — lucide icons, no emojis
 ═══════════════════════════════════════════════ */
 const CARDS = [
-  { title: "Theoretical Foundations", desc: "Strengthening mathematical reasoning and conceptual understanding behind AI & ML algorithms.", icon: "🧠" },
-  { title: "Peer-to-Peer Learning",   desc: "Collaborative study groups, discussions, and mentorship driven by students for students.",       icon: "🤝" },
-  { title: "Hands-on Projects",       desc: "Applying AI & ML concepts to real-world problem statements through practical projects.",          icon: "⚙️" },
-  { title: "Workshops & Sessions",    desc: "Technical workshops, expert talks, and guided learning sessions on emerging AI technologies.",     icon: "🎤" },
-  { title: "Research Orientation",    desc: "Encouraging research mindset, paper reading, innovation, and exploration of advanced AI domains.", icon: "🔬" },
-  { title: "Industry Readiness",      desc: "Bridging the gap between academics and industry through skill development and exposure.",          icon: "🚀" },
+  {
+    title: "Theoretical Foundations",
+    desc:  "Strengthening mathematical reasoning and conceptual understanding behind AI & ML algorithms.",
+    Icon:  FlaskConical,
+  },
+  {
+    title: "Peer-to-Peer Learning",
+    desc:  "Collaborative study groups, discussions, and mentorship driven by students for students.",
+    Icon:  Users,
+  },
+  {
+    title: "Hands-on Projects",
+    desc:  "Applying AI & ML concepts to real-world problem statements through practical projects.",
+    Icon:  Wrench,
+  },
+  {
+    title: "Workshops & Sessions",
+    desc:  "Technical workshops, expert talks, and guided learning sessions on emerging AI technologies.",
+    Icon:  MonitorPlay,
+  },
+  {
+    title: "Research Orientation",
+    desc:  "Encouraging research mindset, paper reading, innovation, and exploration of advanced AI domains.",
+    Icon:  BookOpen,
+  },
+  {
+    title: "Industry Readiness",
+    desc:  "Bridging the gap between academics and industry through skill development and exposure.",
+    Icon:  Briefcase,
+  },
 ];
 
 /* ═══════════════════════════════════════════════
@@ -445,36 +462,27 @@ export default function Home() {
 
   return (
     <section id="home" className="relative" style={{ background: "#080c18" }}>
-
-      {/* Pulse keyframe */}
       <style>{`@keyframes floatPulse{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,0.5)}50%{box-shadow:0 0 0 14px rgba(99,102,241,0)}}`}</style>
 
-      {/* Floating button */}
       <FloatingJoinButton />
-
-      {/* ── ANNOUNCEMENT BANNER ─────────────── */}
       <AnnouncementBanner />
 
       {/* ── HERO ────────────────────────────── */}
       <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
         <NeuralCanvas />
 
-        {/* Nebula glows */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none"
           style={{ background: "radial-gradient(ellipse, #6366f1 0%, transparent 70%)" }} />
         <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full blur-[90px] opacity-15 pointer-events-none"
           style={{ background: "radial-gradient(ellipse, #a78bfa 0%, transparent 70%)" }} />
 
         <div className="relative z-10 text-center max-w-5xl mx-auto space-y-6 pt-16">
-
-          {/* Badge */}
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-semibold tracking-widest uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
             WCE Sangli · AIML Department
           </motion.div>
 
-          {/* ASTRA */}
           <motion.h1
             initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -488,19 +496,16 @@ export default function Home() {
             ASTRA
           </motion.h1>
 
-          {/* Full form */}
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35, duration: 0.6 }}
             className="text-xs sm:text-sm tracking-[0.25em] uppercase text-gray-400 font-medium">
             Association of Students for Theoretical Reasoning in AI
           </motion.p>
 
-          {/* Typewriter */}
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.6 }}
             className="text-base sm:text-lg text-gray-400 h-7">
             <Typewriter />
           </motion.p>
 
-          {/* CTAs */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.65, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
@@ -518,11 +523,9 @@ export default function Home() {
             </button>
           </motion.div>
 
-          {/* Social proof */}
           <SocialProof />
         </div>
 
-        {/* Scroll hint */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <span className="text-xs text-gray-600 tracking-widest uppercase">Scroll</span>
@@ -534,29 +537,6 @@ export default function Home() {
       {/* ── MARQUEE ─────────────────────────── */}
       <Marquee />
 
-      {/* ── STATS ───────────────────────────── */}
-      <div className="relative py-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 50% 50%, #6366f1 0%, transparent 70%)" }} />
-        <FadeUp className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-white/10">
-            {[
-              { label: "Members",   to: 120, suffix: "+" },
-              { label: "Events",    to: 8,   suffix: ""  },
-              { label: "Projects",  to: 15,  suffix: "+" },
-              { label: "Workshops", to: 6,   suffix: ""  },
-            ].map(({ label, to, suffix }) => (
-              <div key={label} className="text-center px-6 py-4">
-                <div className="text-4xl md:text-5xl font-black text-white mb-1" style={{ fontFamily: "Syne, sans-serif" }}>
-                  <Counter to={to} suffix={suffix} />
-                </div>
-                <div className="text-xs text-gray-500 uppercase tracking-widest font-medium">{label}</div>
-              </div>
-            ))}
-          </div>
-        </FadeUp>
-      </div>
-
       {/* ── WHAT WE DO ──────────────────────── */}
       <div className="py-24 px-6">
         <FadeUp className="text-center mb-16 space-y-3">
@@ -565,18 +545,34 @@ export default function Home() {
             What We Do at ASTRA
           </h2>
         </FadeUp>
+
         <div className="max-w-6xl mx-auto grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {CARDS.map((card, i) => (
+          {CARDS.map(({ title, desc, Icon }, i) => (
             <FadeUp key={i} delay={i * 0.08}>
-              <div className="group relative p-7 rounded-3xl border border-white/8 bg-white/3
-                hover:bg-white/6 hover:border-indigo-500/30 transition-all duration-500
-                hover:-translate-y-1.5 hover:shadow-[0_20px_60px_rgba(99,102,241,0.12)] overflow-hidden h-full">
+              <div className="group relative p-8 rounded-3xl border border-white/8 bg-white/[0.03]
+                hover:bg-white/[0.06] hover:border-indigo-500/25
+                transition-all duration-500 hover:-translate-y-1.5
+                hover:shadow-[0_20px_60px_rgba(99,102,241,0.10)] overflow-hidden h-full">
+
+                {/* Hover radial glow */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl"
-                  style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.08) 0%, transparent 70%)" }} />
-                <div className="text-3xl mb-4">{card.icon}</div>
-                <h3 className="text-white font-bold text-lg mb-2">{card.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.07) 0%, transparent 70%)" }} />
+
+                {/* Icon */}
+                <div className="mb-5 w-11 h-11 rounded-2xl flex items-center justify-center
+                  bg-indigo-500/10 border border-indigo-500/20
+                  group-hover:bg-indigo-500/20 group-hover:border-indigo-500/40
+                  transition-all duration-300">
+                  <Icon size={20} className="text-indigo-400 group-hover:text-indigo-300 transition-colors" strokeWidth={1.5} />
+                </div>
+
+                <h3 className="text-white font-bold text-lg mb-2 leading-snug">{title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+
+                {/* Bottom shimmer line */}
+                <div className="absolute bottom-0 left-0 right-0 h-px
+                  bg-gradient-to-r from-transparent via-indigo-500/35 to-transparent
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </FadeUp>
           ))}
@@ -599,50 +595,7 @@ export default function Home() {
         <Testimonials />
       </div>
 
-      {/* ── CTA ─────────────────────────────── */}
-      <div className="py-24 px-6">
-        <FadeUp>
-          <div className="max-w-3xl mx-auto text-center relative rounded-[2.5rem] p-14 overflow-hidden border border-white/8"
-            style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.08) 100%)" }}>
-            {[...Array(14)].map((_, i) => (
-              <div key={i} className="absolute rounded-full bg-white animate-pulse pointer-events-none"
-                style={{
-                  width: (Math.sin(i * 7) * 1.2 + 1.5) + "px",
-                  height: (Math.sin(i * 7) * 1.2 + 1.5) + "px",
-                  top: ((i * 37 + 11) % 97) + "%",
-                  left: ((i * 53 + 17) % 97) + "%",
-                  opacity: Math.cos(i * 3) * 0.2 + 0.3,
-                  animationDelay: (i * 0.4) + "s",
-                  animationDuration: (i % 3 + 2) + "s",
-                }} />
-            ))}
-            <div className="relative z-10 space-y-6">
-              <div className="text-4xl">✦</div>
-              <h2 className="text-3xl md:text-4xl font-black text-white" style={{ fontFamily: "Syne, sans-serif" }}>
-                Be Part of ASTRA
-              </h2>
-              <p className="text-gray-400 max-w-lg mx-auto leading-relaxed">
-                Join a community that believes in deep thinking, collaborative learning,
-                and building intelligent solutions for the future.
-              </p>
-              <div className="flex justify-center gap-4 flex-wrap">
-                <button onClick={() => scrollTo("contact")}
-                  className="px-8 py-3.5 rounded-2xl font-semibold text-white text-sm
-                    transition-all duration-300 hover:scale-105 active:scale-95
-                    hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]"
-                  style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
-                  Join Now ✦
-                </button>
-                <button onClick={() => scrollTo("events")}
-                  className="px-8 py-3.5 rounded-2xl font-semibold text-sm border border-white/15
-                    text-gray-300 hover:border-indigo-500/50 hover:text-white hover:bg-white/5 transition-all duration-300">
-                  Explore Events →
-                </button>
-              </div>
-            </div>
-          </div>
-        </FadeUp>
-      </div>
+    
 
     </section>
   );
