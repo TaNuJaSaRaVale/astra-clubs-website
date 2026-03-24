@@ -559,8 +559,7 @@ export default function About() {
                 {/* Photo */}
                 <div className="flex-shrink-0 text-center">
                   <div className="relative inline-block">
-                    <div className="absolute -inset-2 rounded-3xl blur-md opacity-60"
-                      style={{ background: "linear-gradient(135deg, #6366f1, #a78bfa)" }} />
+                    
                     <img src={hodPhoto} alt="Dr. Vivek Nivrutirao Waghmare"
                       className="relative h-50 w-60 rounded-3xl object-cover border-2 border-white/10"
                       style={{ boxShadow: "0 20px 60px rgba(99,102,241,0.25)" }} />
