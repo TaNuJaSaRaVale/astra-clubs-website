@@ -154,7 +154,7 @@ function CountUp({ to, suffix = "", duration = 2000 }) {
 ───────────────────────────────────────────────────────── */
 const STATS = [
   { value: 100, suffix: "+", label: "Active Members", icon: <Users className="w-5 h-5" /> },
-  { value: 1947, suffix: "",  label: "WCE Founded",   icon: <GraduationCap className="w-5 h-5" /> },
+  { value: 2025, suffix: "",  label: "ASTRA Founded",   icon: <GraduationCap className="w-5 h-5" /> },
   { value: 15,   suffix: "+", label: "Years of Faculty Excellence", icon: <Award className="w-5 h-5" /> },
   { value: 6,    suffix: "",  label: "Core Objectives", icon: <Target className="w-5 h-5" /> },
 ];
