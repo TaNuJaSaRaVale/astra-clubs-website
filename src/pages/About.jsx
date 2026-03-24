@@ -692,20 +692,6 @@ export default function About() {
             <span className="text-indigo-400 font-semibold">meaningful real-world impact</span>{" "}
             - locally, globally, and sustainably.
           </p>
-
-          {/* CTA */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            <a href="#contact"
-              onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-bold text-sm transition-all"
-              style={{
-                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                boxShadow: "0 0 40px rgba(99,102,241,0.3)",
-                animation: "floatPulse 2.5s ease-in-out infinite",
-              }}>
-              Join ASTRA ✦
-            </a>
-          </motion.div>
         </FadeUp>
       </div>
 
