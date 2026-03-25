@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+
+import { useRef, useState,useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   Brain, Users, Globe, FileText, Terminal, Megaphone,
-  HeartHandshake, Code, Palette, Wallet, Sparkles, X,
-  Linkedin,
+  HeartHandshake, Code, Palette, Wallet, Sparkles, X,Film, Calendar
 } from "lucide-react";
 
 /* ─── Member values (first-year board) ───────────────────── */
@@ -21,9 +21,49 @@ const associateRoles = [
     desc: "Handles official documentation, communication, and departmental coordination.",
     icon: <FileText className="w-6 h-6" />,
     color: "#6366f1",
+   members: [
+    { 
+      name: "Srishti Hegde", 
+      initials: "SH", 
+      image: "https://lh3.googleusercontent.com/d/1doAgHsZ2MPVZDJh_D14BHtzuOWdGv9Wg",
+      zoom: "scale-100", // "Bit back" - reduced from scale-110
+      pos: "object-center", 
+      bg: "#ede9fe", fg: "#5b21b6" 
+    },
+    { 
+      name: "Atharva Ranadive", 
+      initials: "AR", 
+      image: "https://lh3.googleusercontent.com/d/1zyLDx9lueJR5du6fRTe6JmV6bwQnNb9J",
+      zoom: "scale-[2]", // "Bring front" - heavily zoomed to match her framing
+      pos: "object-[center_70%]", // Focus on head/shoulders
+      bg: "#dbeafe", fg: "#1d4ed8" 
+    },
+  ],
+  },
+  {
+    role: "Program Directors",
+    desc: "Oversees the planning, execution, and scheduling of all ASTRA club events.",
+    icon: <Calendar className="w-6 h-6" />, 
+    color: "#10b981", 
     members: [
-      { name: "Arya Patil",     initials: "AP", bg: "#ede9fe", fg: "#5b21b6" },
-      { name: "Rahul Deshmukh", initials: "RD", bg: "#dbeafe", fg: "#1d4ed8" },
+      { 
+        name: "Harshal Chothe", 
+        initials: "HC", 
+        image: "https://drive.google.com/thumbnail?id=1Y_uT2isQkF5YVGUuXSNCbiDA9V2bczPI&sz=w1000", 
+        zoom: "scale-[1.2] translate-y-[12%]", 
+        pos: "object-[center_10%]", 
+        bg: "#ecfdf5", 
+        fg: "#065f46" 
+      },
+      { 
+        name: "Shreenish Samadhan Shinde", 
+        initials: "SS", 
+        image: "https://drive.google.com/thumbnail?id=1J1lZ5KmO4vRG4zOVvz2QRqJSUqjbQOV7&sz=w1000", 
+        zoom: "scale-[1.6] translate-x-[8%]", 
+        pos: "object-[center_25%] ", 
+        bg: "#f0fdf4", 
+        fg: "#166534" 
+      },
     ],
   },
   {
@@ -32,8 +72,24 @@ const associateRoles = [
     icon: <Terminal className="w-6 h-6" />,
     color: "#8b5cf6",
     members: [
-      { name: "Sneha Kulkarni", initials: "SK", bg: "#f0fdf4", fg: "#15803d" },
-      { name: "Vikram Rao",     initials: "VR", bg: "#fef3c7", fg: "#b45309" },
+      { 
+      name: "Tanmay Wagh", 
+      initials: "TW", 
+      image: "https://drive.google.com/thumbnail?id=16ZtYx6v6X-hELiyryEca_eoXVcKIxkt9&sz=w1000", 
+      zoom: "scale-[1]", pos: "object-[center_25%]", bg: "#ecfeff", fg: "#155e75" 
+    },
+    { 
+      name: "Pratik Vijay Naik", 
+      initials: "PN", 
+      image: "https://drive.google.com/thumbnail?id=1rZCigi3ArxzO4h6NH1bfrBoKiO2-rqxp&sz=w1000", 
+      zoom: "scale-[1.2]", pos: "object-[center_25%]", bg: "#f0f9ff", fg: "#0369a1" 
+    },
+     { 
+      name: "Prerna Mahadev Fegade", 
+      initials: "PF", 
+     image: "https://drive.google.com/thumbnail?id=1pChfKwDBrg_NETvADGw31-eivr8ihJda&sz=w1000",
+      zoom: "scale-[1]", pos: "object-[center_30%]", bg: "#f0f9ff", fg: "#0369a1" 
+    },
     ],
   },
   {
@@ -42,7 +98,42 @@ const associateRoles = [
     icon: <Megaphone className="w-6 h-6" />,
     color: "#ec4899",
     members: [
-      { name: "Priya Sharma", initials: "PS", bg: "#fdf2f8", fg: "#9d174d" },
+      { 
+      name: "Snehal Dhanaji Patil", 
+      initials: "SP", 
+      image: "https://drive.google.com/thumbnail?id=1Eo0TR_y98wyKqqOki4bXJ9CDEDiGRo2n&sz=w1000", 
+      zoom: "scale-[1.3] translate-x-[8%]", 
+      pos: "object-[center_65%]", 
+      bg: "#fffbeb", 
+      fg: "#9a3412" 
+    },
+    { 
+      name: "Atharva Bhupendra Shrivastava", 
+      initials: "AS", 
+      image: "https://drive.google.com/thumbnail?id=1L8rbBPBKzMV1Nfcw3FmqzXzLzryEMHiO&sz=w1000", 
+      zoom: "scale-[3.2] translate-x-[10%]", 
+      pos: "object-[center_35%]", 
+      bg: "#fff7ed", 
+      fg: "#9a3412" 
+    },
+    { 
+      name: "Gautam Rajesh Papat", 
+      initials: "GP", 
+      image: "https://drive.google.com/thumbnail?id=1WPzJoYVm8XlJRXCyDWr56bbzO-852POE&sz=w1000", 
+      zoom: "scale-[3.3] translate-x-[50%]", // Forces him 15% to the RIGHT to correct left alignment
+pos: "object-[center_25%]",
+      bg: "#fffbeb", 
+      fg: "#b45309" 
+    },
+    { 
+      name: "Rachel Panhalkar", 
+      initials: "RP", 
+      image: "https://drive.google.com/thumbnail?id=1SF1sJcjP4kpBA3uQXSHZ3dmyWm6HQGjj&sz=w1000", 
+      zoom: "scale-[1.3] -translate-y-[-15%] translate-x-[6%]", 
+      pos: "object-top",
+      bg: "#fff7ed", 
+      fg: "#9a3412" 
+    },
     ],
   },
   {
@@ -51,34 +142,109 @@ const associateRoles = [
     icon: <HeartHandshake className="w-6 h-6" />,
     color: "#10b981",
     members: [
-      { name: "Ankit Joshi", initials: "AJ", bg: "#ecfdf5", fg: "#065f46" },
+     { 
+      name: "Kimaya Manglesh Patil", 
+      initials: "KP", 
+      image: "https://drive.google.com/thumbnail?id=1Ka9JXGbfc3xObYbRUxGNnGMtX32uqaS2&sz=w1000", 
+      zoom: "scale-[1.5] translate-x-[8%]", pos: "object-[center_15%]", bg: "#ecfeff", fg: "#0891b2" 
+    },
+    { 
+      name: "Shrutika Shivaji Patil", 
+      initials: "SP", 
+      image: "https://drive.google.com/thumbnail?id=1Q6fVWIDrTn-qVrtwL7G-nQGuwC7kFv8-&sz=w1000", 
+      zoom: "scale-[1.4] translate-x-[8%]", pos: "object-[center_20%]", bg: "#f0f9ff", fg: "#0284c7" 
+    },
+    { 
+      name: "Varad Nandakishor Chaudhari", 
+      initials: "VC", 
+      image: "https://drive.google.com/thumbnail?id=1LNaWisQ3rb5HMiQhMaFJ5tP3upaK-OX6&sz=w1000", 
+      zoom: "scale-[1.3] translate-y-[11%]", pos: "object-[center_-20%]", bg: "#e0f2fe", fg: "#0369a1" 
+    },
     ],
   },
   {
-    role: "Web Developer",
-    desc: "Designs and maintains ASTRA's official web platforms.",
-    icon: <Code className="w-6 h-6" />,
-    color: "#06b6d4",
-    members: [
-      { name: "Dev Bhosale", initials: "DB", bg: "#ecfeff", fg: "#155e75" },
-    ],
-  },
+  role: "Web Developer",
+  desc: "ASTRA chya adhikrut web platforms che design ani maintainance kartat.",
+  icon: <Code className="w-6 h-6" />,
+  color: "#06b6d4",
+  members: [
+    { 
+      name: "Tanuja Sambhaji Saravale", 
+      initials: "TS", 
+      image: "https://drive.google.com/thumbnail?id=18T-3ZxWg1WyCcuKHbBS-LCzGBxZXgg_O&sz=w1000", 
+      zoom: "scale-[1.3]", // Chehra javal annyasathi
+      pos: "object-[center_10%]", // Chehra varti ghenyasathi
+      bg: "#f0f9ff", 
+      fg: "#0369a1" 
+    },
+  ],
+},
   {
-    role: "Art & Design Team",
-    desc: "Builds ASTRA's visual branding and creative identity.",
-    icon: <Palette className="w-6 h-6" />,
-    color: "#f59e0b",
-    members: [
-      { name: "Meera Nair", initials: "MN", bg: "#fffbeb", fg: "#92400e" },
-    ],
-  },
+  role: "Editors",
+  desc: "Crafts and polishes high-quality video content and digital media for ASTRA.",
+  icon: <Film className="w-6 h-6" />, 
+  color: "#6366f1", 
+  members: [
+    { 
+      name: "Manaswi Vishal Sorde", 
+      initials: "MS", 
+      image: "https://drive.google.com/thumbnail?id=1fiH3dFwdoeC-kCitlQWgh9gze5Xf1qQ3&sz=w1000", 
+      zoom: "scale-[0.9]", 
+      pos: "object-[center_35%]", 
+      bg: "#eef2ff", 
+      fg: "#4338ca" 
+    },
+  ],
+},
+  {
+  role: "Art & Design Team",
+  desc: "Builds ASTRA's visual branding and creative identity.",
+  icon: <Palette className="w-6 h-6" />,
+  color: "#f59e0b",
+  members: [
+    { 
+      name: "Rrucha Anand Wamanse", 
+      initials: "RW", 
+      image: "https://lh3.googleusercontent.com/d/1o5TMLn_xp_WeX8YpFfvpy1y_aXxPcppL", 
+      zoom: "scale-[1.8]", 
+      pos: "object-[center_50%]", 
+      bg: "#fff7ed", 
+      fg: "#9a3412" 
+    },
+    { 
+      name: "Reva Premendra Meshram", 
+      initials: "RM", 
+      image: "https://lh3.googleusercontent.com/d/1Nd7vgX8gT53ErD8baI2SuWJvm4HPAGBf", 
+      zoom: "scale-[1.6]", 
+      pos: "object-[center_30%]", 
+      bg: "#fffbeb", 
+      fg: "#b45309" 
+    },
+  ],
+},
   {
     role: "Treasurer",
     desc: "Manages budgeting, expenses, and financial transparency.",
     icon: <Wallet className="w-6 h-6" />,
     color: "#ef4444",
-    members: [
-      { name: "Rohan More", initials: "RM", bg: "#fef2f2", fg: "#991b1b" },
+   members: [
+      { 
+        name: "Aditya Dattatraya Patil", 
+        initials: "AP", 
+        image: "https://lh3.googleusercontent.com/d/1CwLVFxzZgnBE9cN4XiwZWcPKh4xroS_8", 
+        zoom: "scale-[1]", // Heavy zoom to show face/shoulders clearly
+        pos: "object-[center_10%]", // Precise positioning for his specific photo
+        bg: "#fef2f2", fg: "#991b1b" 
+      },
+      { 
+      name: "Vaidehi Mahesh Tendulkar", 
+      initials: "VT", 
+      image: "https://drive.google.com/thumbnail?id=1PgZLG7kdFHWvu-f_WkuEjqlSL1jz2wm3&sz=w1000", 
+      zoom: "scale-[1]", 
+      pos: "object-[center_5%]", // Adjusted to bring her face up and front
+      bg: "#eef2ff", 
+      fg: "#4338ca" 
+    },
     ],
   },
 ];
@@ -128,64 +294,88 @@ function SwipeSection({ items, renderCard }) {
 
 /* ─── Flip card for associate roles ──────────────────────── */
 function FlipCard({ role }) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 2;
+  const totalPages = Math.ceil(role.members.length / itemsPerPage);
+
+  // --- AUTOMATIC SLIDE LOGIC ---
+  useEffect(() => {
+    if (totalPages <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentPage((prev) => (prev + 1) % totalPages);
+    }, 2000); // 2 seconds
+
+    return () => clearInterval(interval);
+  }, [totalPages]); 
+
+  const currentMembers = role.members.slice(
+    currentPage * itemsPerPage,
+    currentPage * itemsPerPage + itemsPerPage
+  );
+
   return (
-    <div className="flip-card w-[340px] h-[300px]">
+    <div className="flip-card w-[400px] h-[400px]">
       <div className="flip-card-inner w-full h-full">
-        {/* Front */}
-        <div
-          className="flip-card-front w-full h-full bg-white/70 backdrop-blur-xl border border-white
-            rounded-[2rem] p-9 flex flex-col justify-between"
-          style={{ boxShadow: "0 20px 50px rgba(99,102,241,0.08)" }}
-        >
+        {/* Front Side */}
+        <div className="flip-card-front w-full h-full bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-9 flex flex-col justify-between">
           <div>
-            <div
-              className="mb-5 p-4 w-fit rounded-2xl"
-              style={{ background: `${role.color}15`, border: `1px solid ${role.color}25` }}
-            >
+            <div className="mb-5 p-4 w-fit rounded-2xl" style={{ background: `${role.color}15`, border: `1px solid ${role.color}25` }}>
               <span style={{ color: role.color }}>{role.icon}</span>
             </div>
-            <h3
-              className="text-xl font-bold text-slate-900 mb-3"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
-              {role.role}
-            </h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>{role.role}</h3>
             <p className="text-slate-500 text-sm leading-relaxed">{role.desc}</p>
           </div>
-          <p className="text-xs text-slate-300 font-medium mt-2">Hover to see team →</p>
+          <p className="text-xs text-slate-300 font-medium">Hover to see team →</p>
         </div>
 
-        {/* Back */}
-        <div
-          className="flip-card-back w-full h-full bg-white/80 backdrop-blur-xl border border-white
-            rounded-[2rem] p-9 flex flex-col justify-center items-center gap-6"
-          style={{ boxShadow: "0 20px 50px rgba(99,102,241,0.12)" }}
-        >
-          <h3
-            className="text-lg font-bold text-slate-900"
-            style={{ fontFamily: "Syne, sans-serif" }}
-          >
-            {role.role}
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {role.members.map((m, i) => (
-              <div key={i} className="flex flex-col items-center gap-2">
+        {/* Back Side (Auto-Sliding, No Arrows) */}
+        <div className="flip-card-back w-full h-full bg-white/80 backdrop-blur-xl border border-white rounded-[2rem] p-6 flex flex-col justify-center items-center relative">
+          <h3 className="text-lg font-bold text-slate-900 mb-8" style={{ fontFamily: 'Syne, sans-serif' }}>{role.role}</h3>
+          
+          <div className="flex flex-row justify-center gap-10 w-full px-4 items-center min-h-[180px]">
+            {currentMembers.map((m) => (
+              <div key={m.name} className="flex flex-col items-center gap-3 transition-opacity duration-500">
                 <div
-                  className="w-14 h-14 rounded-full flex items-center justify-center text-base font-bold shadow-sm"
-                  style={{ background: m.bg, color: m.fg, border: `2px solid ${m.fg}20` }}
+                  className="w-32 h-32 rounded-full flex items-center justify-center text-3xl font-bold shadow-xl overflow-hidden border-[6px]"
+                  style={{ background: m.bg, color: m.fg, borderColor: `${m.fg}20` }}
                 >
-                  {m.initials}
+                  {m.image ? (
+                    <img 
+                      src={m.image.includes('drive.google.com') 
+                        ? m.image.replace("open?id=", "thumbnail?id=") + "&sz=w1000" 
+                        : m.image} 
+                      alt={m.name} 
+                      className={`w-full h-full object-cover ${m.pos || 'object-center'} ${m.zoom || 'scale-110'}`} 
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <span>{m.initials}</span>
+                  )}
                 </div>
-                <p className="text-sm font-semibold text-slate-800">{m.name}</p>
+                <p className="text-[11px] font-black text-slate-800 text-center leading-tight max-w-[120px]">
+                  {m.name}
+                </p>
               </div>
             ))}
           </div>
+
+          {/* Dots / Indicators only (Arrows removed) */}
+          {totalPages > 1 && (
+            <div className="absolute bottom-10 flex justify-center gap-2 w-full">
+              {[...Array(totalPages)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className={`h-1.5 rounded-full transition-all duration-500 ${currentPage === i ? 'bg-indigo-600 w-6' : 'bg-slate-300 w-1.5'}`} 
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
-
 /* ─── Fade-up wrapper ─────────────────────────────────────── */
 function FadeUp({ children, delay = 0, className = "" }) {
   const ref    = useRef(null);
