@@ -369,9 +369,9 @@ function LearningPath() {
    TESTIMONIALS
 ═══════════════════════════════════════════════ */
 const TESTIMONIALS = [
-  { quote: "ASTRA completely changed how I approach AI. The peer discussions go way deeper than classroom lectures.",       name: "Rohan Deshmukh", role: "3rd Year, AIML", initials: "RD", color: "#6366f1" },
-  { quote: "The ML Foundation club service helped me improve my communication skills.", name: "Tanuja Saravale", role: "2nd Year, AIML", initials: "TS", color: "#8b5cf6" },
-  { quote: "Being part of ASTRA pushed me to read my first research paper. Now I read one every week.",                     name: "Aarav Mane",     role: "3rd Year, AIML", initials: "AM", color: "#06b6d4" },
+  { quote: "My experience with the club has been excellent, especially the 1st presentation of the ML event, and I highly recommend it to others as it truly is the club of the future", name: "Jaydeep Satre", initials: "JS", color: "#6366f1" },
+  { quote: "The ML Foundation club service helped me improve my communication skills.", name: "Prerna M. Fegade", initials: "PF", color: "#8b5cf6" },
+  { quote: "My experience with the club has been the best, as it gave me a path to learn technical skills and covers everything I need to know, with my favorite memory being our interview time.",name: "Sumit Zinge", initials: "SZ", color: "#06b6d4" },
 ];
 
 function Testimonials() {
