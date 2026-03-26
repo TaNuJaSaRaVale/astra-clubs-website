@@ -15,7 +15,7 @@
 
 # 🌌 ASTRA Clubs Website
 
-Official website of **ASTRA** —  
+Official website of **ASTRA** -  
 **Association of Students for Theoretical Reasoning in Artificial Intelligence**,  
 Department of **Artificial Intelligence & Machine Learning**,  
 **Walchand College of Engineering, Sangli**.
