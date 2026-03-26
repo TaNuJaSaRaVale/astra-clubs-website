@@ -154,7 +154,7 @@ function CountUp({ to, suffix = "", duration = 2000 }) {
 ───────────────────────────────────────────────────────── */
 const STATS = [
   { value: 100, suffix: "+", label: "Active Members", icon: <Users className="w-5 h-5" /> },
-  { value: 1947, suffix: "",  label: "WCE Founded",   icon: <GraduationCap className="w-5 h-5" /> },
+  { value: 2025, suffix: "",  label: "ASTRA Founded",   icon: <GraduationCap className="w-5 h-5" /> },
   { value: 15,   suffix: "+", label: "Years of Faculty Excellence", icon: <Award className="w-5 h-5" /> },
   { value: 6,    suffix: "",  label: "Core Objectives", icon: <Target className="w-5 h-5" /> },
 ];
@@ -559,8 +559,7 @@ export default function About() {
                 {/* Photo */}
                 <div className="flex-shrink-0 text-center">
                   <div className="relative inline-block">
-                    <div className="absolute -inset-2 rounded-3xl blur-md opacity-60"
-                      style={{ background: "linear-gradient(135deg, #6366f1, #a78bfa)" }} />
+                    
                     <img src={hodPhoto} alt="Dr. Vivek Nivrutirao Waghmare"
                       className="relative h-50 w-60 rounded-3xl object-cover border-2 border-white/10"
                       style={{ boxShadow: "0 20px 60px rgba(99,102,241,0.25)" }} />
@@ -692,20 +691,6 @@ export default function About() {
             <span className="text-indigo-400 font-semibold">meaningful real-world impact</span>{" "}
             - locally, globally, and sustainably.
           </p>
-
-          {/* CTA */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            <a href="#contact"
-              onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-bold text-sm transition-all"
-              style={{
-                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                boxShadow: "0 0 40px rgba(99,102,241,0.3)",
-                animation: "floatPulse 2.5s ease-in-out infinite",
-              }}>
-              Join ASTRA ✦
-            </a>
-          </motion.div>
         </FadeUp>
       </div>
 

@@ -122,20 +122,7 @@ export default function Navbar() {
             </button>
           ))}
 
-          {/* Join button in nav */}
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="ml-4 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95"
-            style={{
-              background: "linear-gradient(135deg, rgba(99,102,241,0.8), rgba(139,92,246,0.8))",
-              border: "1px solid rgba(99,102,241,0.4)",
-              boxShadow: "0 0 20px rgba(99,102,241,0.2)",
-            }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow = "0 0 30px rgba(99,102,241,0.5)"}
-            onMouseLeave={e => e.currentTarget.style.boxShadow = "0 0 20px rgba(99,102,241,0.2)"}
-          >
-            Join ✦
-          </button>
+          
         </div>
 
         {/* MOBILE TOGGLE */}
