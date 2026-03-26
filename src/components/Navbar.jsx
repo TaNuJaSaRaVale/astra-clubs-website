@@ -61,7 +61,7 @@ export default function Navbar() {
             <img
               src={wceLogo}
               alt="WCE Logo"
-              className="h-11 w-11 object-contain transition-all duration-300 group-hover:scale-105"
+              className="h-16 w-16 object-contain transition-all duration-300 group-hover:scale-105"
               style={{ filter: "drop-shadow(0 0 8px rgba(255,255,255,0.1))" }}
             />
           </div>
@@ -80,7 +80,7 @@ export default function Navbar() {
             <img
               src={logo}
               alt="ASTRA"
-              className="h-11 w-11 object-contain transition-all duration-300 group-hover:scale-105"
+              className="h-16 w-16 object-contain transition-all duration-300 group-hover:scale-105"
               style={{ filter: "drop-shadow(0 0 8px rgba(99,102,241,0.3))" }}
             />
           </button>
