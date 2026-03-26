@@ -190,7 +190,7 @@ pos: "object-[center_25%]",
       bg: "#fff7ed", 
       fg: "#9a3412" 
     },
-      { name: "Priya Sharma", initials: "PS", fg: "#f472b6" },
+     
     ],
   },
   {
@@ -280,16 +280,7 @@ pos: "object-[center_25%]",
   ],
 },
     
-  {
-    role: "Web Developer",
-    desc: "Designs and maintains ASTRA's official web platforms.",
-    icon: <Code className="w-6 h-6" />,
-    color: "#06b6d4",
-    members: [
-      { name: "Dev Bhosale", initials: "DB", fg: "#22d3ee" },
-    ],
-  },
- 
+  
   {
     role: "Treasurer",
     desc: "Manages budgeting, expenses, and financial transparency.",
@@ -410,52 +401,56 @@ function FlipCard({ role }) {
 
         {/* Back Side (Auto-Sliding) */}
         <div
-          className="flip-card-back absolute inset-0 w-full h-full bg-[#0d1224]/90 backdrop-blur-xl border border-white/10
-            rounded-[2rem] p-6 flex flex-col justify-center items-center [backface-visibility:hidden] [transform:rotateY(180deg)]"
+  className="flip-card-back absolute inset-0 w-full h-full bg-[#0d1224]/90 backdrop-blur-xl border border-white/10
+    rounded-[2rem] p-6 flex flex-col justify-center items-center [backface-visibility:hidden] [transform:rotateY(180deg)]"
+>
+  <h3 className="text-lg font-bold text-white mb-6" style={{ fontFamily: "Syne, sans-serif" }}>
+    {role.role}
+  </h3>
+  
+  {/* Increased min-h to 200px to accommodate larger circles */}
+  <div className="flex flex-row justify-center gap-6 w-full px-2 items-center min-h-[200px]">
+    {currentMembers.map((m) => (
+      <div key={m.name} className="flex flex-col items-center gap-3 transition-opacity duration-500">
+        <div
+          /* Increased from w-20 h-20 to w-32 h-32 */
+          className="w-32 h-32 rounded-full flex items-center justify-center text-3xl font-bold overflow-hidden border-4"
+          style={{ background: m.bg, color: m.fg, borderColor: `${m.fg}40` }}
         >
-          <h3 className="text-lg font-bold text-white mb-6" style={{ fontFamily: "Syne, sans-serif" }}>
-            {role.role}
-          </h3>
-          
-          <div className="flex flex-row justify-center gap-6 w-full px-2 items-center min-h-[140px]">
-            {currentMembers.map((m) => (
-              <div key={m.name} className="flex flex-col items-center gap-2 transition-opacity duration-500">
-                <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold overflow-hidden border-2"
-                  style={{ background: m.bg, color: m.fg, borderColor: `${m.fg}40` }}
-                >
-                  {m.image ? (
-                    <img 
-                      src={m.image.includes('drive.google.com') 
-                        ? m.image.replace("open?id=", "thumbnail?id=") + "&sz=w1000" 
-                        : m.image} 
-                      alt={m.name} 
-                      className={`w-full h-full object-cover ${m.pos || 'object-center'} ${m.zoom || 'scale-110'}`} 
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <span>{m.initials}</span>
-                  )}
-                </div>
-                <p className="text-[10px] font-bold text-gray-200 text-center leading-tight max-w-[100px]">
-                  {m.name}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Indicators */}
-          {totalPages > 1 && (
-            <div className="flex justify-center gap-1.5 mt-6">
-              {[...Array(totalPages)].map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`h-1 rounded-full transition-all duration-500 ${currentPage === i ? 'bg-indigo-500 w-4' : 'bg-white/20 w-1'}`} 
-                />
-              ))}
-            </div>
+          {m.image ? (
+            <img 
+              src={m.image.includes('drive.google.com') 
+                ? m.image.replace("open?id=", "thumbnail?id=") + "&sz=w1000" 
+                : m.image} 
+              alt={m.name} 
+              className={`w-full h-full object-cover ${m.pos || 'object-center'} ${m.zoom || 'scale-110'}`} 
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <span>{m.initials}</span>
           )}
         </div>
+        <p className="text-[12px] font-bold text-gray-200 text-center leading-tight max-w-[120px]">
+          {m.name}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  {/* Indicators */}
+  {totalPages > 1 && (
+    <div className="flex justify-center gap-1.5 mt-6">
+      {[...Array(totalPages)].map((_, i) => (
+        <div 
+          key={i} 
+          className={`h-1 rounded-full transition-all duration-500 ${currentPage === i ? 'bg-indigo-500 w-4' : 'bg-white/20 w-1'}`} 
+        />
+      ))}
+    </div>
+  )}
+</div>
+
+          
       </div>
     </div>
   );
