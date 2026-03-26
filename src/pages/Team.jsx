@@ -1,10 +1,64 @@
 
 import { useRef, useState,useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import {
   Brain, Users, Globe, FileText, Terminal, Megaphone,
   HeartHandshake, Code, Palette, Wallet, Sparkles, X,Film, Calendar
 } from "lucide-react";
+
+/* ─── NEURAL CANVAS (Shared Dark Theme Background) ───────── */
+function NeuralCanvas() {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animId;
+    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+    resize();
+    window.addEventListener("resize", resize);
+    const COUNT = 45;
+    const particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.4,
+    }));
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(148,130,255,0.65)";
+        ctx.fill();
+      });
+      for (let i = 0; i < COUNT; i++) {
+        for (let j = i + 1; j < COUNT; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(99,102,241,${0.18 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+      animId = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
+  }, []);
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
+}
 
 /* ─── Member values (first-year board) ───────────────────── */
 const memberValues = [
@@ -64,6 +118,7 @@ const associateRoles = [
         bg: "#f0fdf4", 
         fg: "#166534" 
       },
+     
     ],
   },
   {
@@ -90,6 +145,7 @@ const associateRoles = [
      image: "https://drive.google.com/thumbnail?id=1pChfKwDBrg_NETvADGw31-eivr8ihJda&sz=w1000",
       zoom: "scale-[1]", pos: "object-[center_30%]", bg: "#f0f9ff", fg: "#0369a1" 
     },
+      
     ],
   },
   {
@@ -134,6 +190,7 @@ pos: "object-[center_25%]",
       bg: "#fff7ed", 
       fg: "#9a3412" 
     },
+      { name: "Priya Sharma", initials: "PS", fg: "#f472b6" },
     ],
   },
   {
@@ -222,6 +279,17 @@ pos: "object-[center_25%]",
     },
   ],
 },
+    
+  {
+    role: "Web Developer",
+    desc: "Designs and maintains ASTRA's official web platforms.",
+    icon: <Code className="w-6 h-6" />,
+    color: "#06b6d4",
+    members: [
+      { name: "Dev Bhosale", initials: "DB", fg: "#22d3ee" },
+    ],
+  },
+ 
   {
     role: "Treasurer",
     desc: "Manages budgeting, expenses, and financial transparency.",
@@ -245,7 +313,7 @@ pos: "object-[center_25%]",
       bg: "#eef2ff", 
       fg: "#4338ca" 
     },
-    ],
+   ],
   },
 ];
 
@@ -266,7 +334,7 @@ function SwipeSection({ items, renderCard }) {
       <div
         ref={trackRef}
         onScroll={onScroll}
-        className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+        className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 pt-4 custom-scrollbar"
       >
         {items.map((item, i) => (
           <div key={i} className="snap-center flex-shrink-0">
@@ -275,15 +343,16 @@ function SwipeSection({ items, renderCard }) {
         ))}
       </div>
       {/* Dot indicator */}
-      <div className="flex justify-center gap-1.5 mt-5">
+      <div className="flex justify-center gap-2 mt-2">
         {items.map((_, i) => (
           <div
             key={i}
             className="rounded-full transition-all duration-300"
             style={{
-              width:      i === active ? 20 : 6,
-              height:     6,
-              background: i === active ? "#6366f1" : "#cbd5e1",
+              width:      i === active ? 24 : 8,
+              height:     8,
+              background: i === active ? "#6366f1" : "rgba(255,255,255,0.2)",
+              boxShadow:  i === active ? "0 0 10px rgba(99,102,241,0.5)" : "none"
             }}
           />
         ))}
@@ -292,7 +361,7 @@ function SwipeSection({ items, renderCard }) {
   );
 }
 
-/* ─── Flip card for associate roles ──────────────────────── */
+/* ─── FlipCard Component (Resolved Syntax) ─────────────────── */
 function FlipCard({ role }) {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 2;
@@ -315,30 +384,45 @@ function FlipCard({ role }) {
   );
 
   return (
-    <div className="flip-card w-[400px] h-[400px]">
-      <div className="flip-card-inner w-full h-full">
+    <div className="flip-card w-[340px] h-[320px] group perspective-[1000px]">
+      <div className="flip-card-inner w-full h-full relative transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+        
         {/* Front Side */}
-        <div className="flip-card-front w-full h-full bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-9 flex flex-col justify-between">
-          <div>
-            <div className="mb-5 p-4 w-fit rounded-2xl" style={{ background: `${role.color}15`, border: `1px solid ${role.color}25` }}>
+        <div
+          className="flip-card-front absolute inset-0 w-full h-full bg-white/5 backdrop-blur-xl border border-white/10
+            rounded-[2rem] p-9 flex flex-col justify-between [backface-visibility:hidden]"
+          style={{ boxShadow: "0 20px 50px rgba(0,0,0,0.3)" }}
+        >
+          <div className="relative z-10">
+            <div
+              className="mb-6 p-4 w-fit rounded-2xl transition-colors"
+              style={{ background: `${role.color}15`, border: `1px solid ${role.color}30` }}
+            >
               <span style={{ color: role.color }}>{role.icon}</span>
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>{role.role}</h3>
-            <p className="text-slate-500 text-sm leading-relaxed">{role.desc}</p>
+            <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: "Syne, sans-serif" }}>
+              {role.role}
+            </h3>
+            <p className="text-gray-400 text-sm leading-relaxed">{role.desc}</p>
           </div>
-          <p className="text-xs text-slate-300 font-medium">Hover to see team →</p>
+          <p className="text-xs text-indigo-300/70 font-medium mt-4">Hover to meet team →</p>
         </div>
 
-        {/* Back Side (Auto-Sliding, No Arrows) */}
-        <div className="flip-card-back w-full h-full bg-white/80 backdrop-blur-xl border border-white rounded-[2rem] p-6 flex flex-col justify-center items-center relative">
-          <h3 className="text-lg font-bold text-slate-900 mb-8" style={{ fontFamily: 'Syne, sans-serif' }}>{role.role}</h3>
+        {/* Back Side (Auto-Sliding) */}
+        <div
+          className="flip-card-back absolute inset-0 w-full h-full bg-[#0d1224]/90 backdrop-blur-xl border border-white/10
+            rounded-[2rem] p-6 flex flex-col justify-center items-center [backface-visibility:hidden] [transform:rotateY(180deg)]"
+        >
+          <h3 className="text-lg font-bold text-white mb-6" style={{ fontFamily: "Syne, sans-serif" }}>
+            {role.role}
+          </h3>
           
-          <div className="flex flex-row justify-center gap-10 w-full px-4 items-center min-h-[180px]">
+          <div className="flex flex-row justify-center gap-6 w-full px-2 items-center min-h-[140px]">
             {currentMembers.map((m) => (
-              <div key={m.name} className="flex flex-col items-center gap-3 transition-opacity duration-500">
+              <div key={m.name} className="flex flex-col items-center gap-2 transition-opacity duration-500">
                 <div
-                  className="w-32 h-32 rounded-full flex items-center justify-center text-3xl font-bold shadow-xl overflow-hidden border-[6px]"
-                  style={{ background: m.bg, color: m.fg, borderColor: `${m.fg}20` }}
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold overflow-hidden border-2"
+                  style={{ background: m.bg, color: m.fg, borderColor: `${m.fg}40` }}
                 >
                   {m.image ? (
                     <img 
@@ -353,20 +437,20 @@ function FlipCard({ role }) {
                     <span>{m.initials}</span>
                   )}
                 </div>
-                <p className="text-[11px] font-black text-slate-800 text-center leading-tight max-w-[120px]">
+                <p className="text-[10px] font-bold text-gray-200 text-center leading-tight max-w-[100px]">
                   {m.name}
                 </p>
               </div>
             ))}
           </div>
 
-          {/* Dots / Indicators only (Arrows removed) */}
+          {/* Indicators */}
           {totalPages > 1 && (
-            <div className="absolute bottom-10 flex justify-center gap-2 w-full">
+            <div className="flex justify-center gap-1.5 mt-6">
               {[...Array(totalPages)].map((_, i) => (
                 <div 
                   key={i} 
-                  className={`h-1.5 rounded-full transition-all duration-500 ${currentPage === i ? 'bg-indigo-600 w-6' : 'bg-slate-300 w-1.5'}`} 
+                  className={`h-1 rounded-full transition-all duration-500 ${currentPage === i ? 'bg-indigo-500 w-4' : 'bg-white/20 w-1'}`} 
                 />
               ))}
             </div>
@@ -376,6 +460,7 @@ function FlipCard({ role }) {
     </div>
   );
 }
+
 /* ─── Fade-up wrapper ─────────────────────────────────────── */
 function FadeUp({ children, delay = 0, className = "" }) {
   const ref    = useRef(null);
@@ -398,74 +483,82 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="relative min-h-screen bg-[#f8faff] text-slate-800 py-32 overflow-hidden font-sans"
+      className="relative min-h-screen bg-[#080c18] text-white py-32 overflow-hidden font-sans"
     >
-      {/* Background glows */}
-      <div className="absolute top-0 left-1/4 w-[700px] h-[700px] bg-blue-400/8 blur-[150px] rounded-full -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-400/8 blur-[150px] rounded-full -z-10" />
+      {/* Background Effects */}
+      <NeuralCanvas />
+      
+      {/* Glow Orbs */}
+      <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 blur-[150px] rounded-full -z-10 pointer-events-none" />
+      <div className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full -z-10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 space-y-24">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 space-y-32">
 
         {/* ── Page header ── */}
-        <FadeUp className="text-center space-y-5">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-indigo-100 bg-white shadow-sm text-indigo-600 text-xs font-bold uppercase tracking-widest">
+        <FadeUp className="text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
             Our People
           </div>
           <h1
-            className="text-6xl md:text-7xl font-black text-slate-900 tracking-tighter"
+            className="text-5xl md:text-7xl font-black text-white tracking-tighter"
             style={{ fontFamily: "Syne, sans-serif" }}
           >
-            The Team
+            The ASTRA Core
           </h1>
-          <p className="max-w-3xl mx-auto text-center text-lg text-slate-500 font-medium leading-relaxed">
+          <p className="max-w-3xl mx-auto text-center text-lg md:text-xl text-gray-400 font-medium leading-relaxed">
             ASTRA is powered by a dedicated collective of students at{" "}
-            <span className="text-slate-900 font-bold">Walchand College of Engineering</span>,
+            <span className="text-white font-bold">Walchand College of Engineering</span>,
             united to push the boundaries of{" "}
-            <span className="text-indigo-600 font-semibold">Artificial Intelligence</span>.
+            <span className="text-indigo-400 font-semibold drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">Artificial Intelligence</span>.
           </p>
         </FadeUp>
 
         {/* ── Member Board ── */}
-        <FadeUp>
-          <div className="space-y-8">
-            <h2
-              className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight text-center"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
-              Member Board{" "}
-              <span className="text-slate-400 font-light text-3xl">(First Year)</span>
-            </h2>
-            <p className="text-center text-slate-400 text-sm">Swipe to explore →</p>
+        <FadeUp delay={0.1}>
+          <div className="space-y-10">
+            <div className="text-center">
+              <h2
+                className="text-4xl md:text-5xl font-black text-white tracking-tight mb-3"
+                style={{ fontFamily: "Syne, sans-serif" }}
+              >
+                Member Board
+              </h2>
+              <span className="text-indigo-300/80 font-medium text-lg tracking-widest uppercase text-center block">
+                First Year Values
+              </span>
+            </div>
 
             <SwipeSection
               items={memberValues}
               renderCard={(item) => (
                 <div
-                  className="w-[360px] h-[300px] bg-white/70 backdrop-blur-xl border border-white
-                    rounded-[2rem] p-9 flex flex-col justify-between group
-                    hover:-translate-y-2 transition-all duration-400"
-                  style={{ boxShadow: "0 20px 50px rgba(99,102,241,0.08)" }}
+                  className="w-[360px] h-[320px] bg-white/5 backdrop-blur-xl border border-white/10
+                    rounded-[2rem] p-9 flex flex-col justify-between group relative overflow-hidden
+                    hover:-translate-y-2 transition-all duration-400 cursor-pointer"
+                  style={{ boxShadow: "0 20px 50px rgba(0,0,0,0.3)" }}
                 >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ background: `radial-gradient(circle at 100% 100%, ${item.color}15, transparent 70%)` }} />
+                    
                   <div>
                     <div
-                      className="mb-5 p-4 w-fit rounded-2xl transition-colors"
-                      style={{ background: `${item.color}12`, border: `1px solid ${item.color}22` }}
+                      className="mb-6 p-4 w-fit rounded-2xl transition-all duration-300 group-hover:scale-110"
+                      style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}
                     >
                       <span style={{ color: item.color }}>{item.icon}</span>
                     </div>
                     <h3
-                      className="text-xl font-bold text-slate-900 mb-3"
+                      className="text-2xl font-bold text-white mb-3"
                       style={{ fontFamily: "Syne, sans-serif" }}
                     >
                       {item.title}
                     </h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
                   </div>
-                  {/* Bottom progress bar */}
-                  <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mt-4">
                     <div
-                      className="h-full w-0 group-hover:w-full transition-all duration-700 rounded-full"
-                      style={{ background: `linear-gradient(90deg, transparent, ${item.color}, transparent)` }}
+                      className="h-full w-0 group-hover:w-full transition-all duration-700 ease-out rounded-full"
+                      style={{ background: `linear-gradient(90deg, ${item.color}40, ${item.color})`, boxShadow: `0 0 10px ${item.color}` }}
                     />
                   </div>
                 </div>
@@ -475,20 +568,25 @@ export default function Team() {
         </FadeUp>
 
         {/* ── Associate Board ── */}
-        <FadeUp>
-          <div className="space-y-8">
-            <h2
-              className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight text-center"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
-              Associate Board
-            </h2>
-            <p className="text-center text-slate-400 text-sm">Hover each card to meet the team · Swipe to explore →</p>
+        <FadeUp delay={0.2}>
+          <div className="space-y-10">
+            <div className="text-center">
+              <h2
+                className="text-4xl md:text-5xl font-black text-white tracking-tight mb-3"
+                style={{ fontFamily: "Syne, sans-serif" }}
+              >
+                Associate Board
+              </h2>
+              <span className="text-indigo-300/80 font-medium text-lg tracking-widest uppercase text-center block">
+                Core Operations
+              </span>
+            </div>
 
             <SwipeSection
               items={associateRoles}
               renderCard={(role) => <FlipCard role={role} />}
             />
+
           </div>
         </FadeUp>
 
