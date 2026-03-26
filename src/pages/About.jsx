@@ -154,7 +154,7 @@ function CountUp({ to, suffix = "", duration = 2000 }) {
 ───────────────────────────────────────────────────────── */
 const STATS = [
   { value: 100, suffix: "+", label: "Active Members", icon: <Users className="w-5 h-5" /> },
-  { value: 1947, suffix: "",  label: "WCE Founded",   icon: <GraduationCap className="w-5 h-5" /> },
+  { value: 2025, suffix: "",  label: "ASTRA Founded",   icon: <GraduationCap className="w-5 h-5" /> },
   { value: 15,   suffix: "+", label: "Years of Faculty Excellence", icon: <Award className="w-5 h-5" /> },
   { value: 6,    suffix: "",  label: "Core Objectives", icon: <Target className="w-5 h-5" /> },
 ];
@@ -559,8 +559,7 @@ export default function About() {
                 {/* Photo */}
                 <div className="flex-shrink-0 text-center">
                   <div className="relative inline-block">
-                    <div className="absolute -inset-2 rounded-3xl blur-md opacity-60"
-                      style={{ background: "linear-gradient(135deg, #6366f1, #a78bfa)" }} />
+                    
                     <img src={hodPhoto} alt="Dr. Vivek Nivrutirao Waghmare"
                       className="relative h-50 w-60 rounded-3xl object-cover border-2 border-white/10"
                       style={{ boxShadow: "0 20px 60px rgba(99,102,241,0.25)" }} />
@@ -667,45 +666,45 @@ export default function About() {
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.08) 0%, transparent 50%)" }} />
 
-        <FadeUp className="max-w-5xl mx-auto">
-          <div className="glass-card rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
-            <div className="flex-1 text-center md:text-left space-y-6">
-              <div className="inline-flex items-center justify-center md:justify-start gap-3 w-full md:w-auto">
-                 <SectionPill icon={<Globe className="w-3 h-3" />} label="Our Vision" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-black leading-tight" style={{ fontFamily: "Syne, sans-serif" }}>
-                <span style={{
-                  background: "linear-gradient(135deg, #e0e7ff 20%, #818cf8 50%, #a78bfa 80%)",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                }}>
-                  Building the minds<br className="hidden md:block" /> that build AI.
-                </span>
-              </h2>
-              <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                To nurture a community of intellectually curious and ethically grounded learners who explore{" "}
-                <span className="text-indigo-400 font-semibold">Artificial Intelligence</span>{" "}
-                with depth, responsibility, and purpose. We empower students to{" "}
-                <span className="text-white font-semibold">think critically</span>,{" "}
-                <span className="text-white font-semibold">learn collaboratively</span>, and create{" "}
-                <span className="text-indigo-400 font-semibold">meaningful real-world impact</span>.
-              </p>
-            </div>
-            
-            <div className="flex-shrink-0">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                <a href="#contact"
-                  onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-bold text-sm transition-all whitespace-nowrap"
-                  style={{
-                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                    boxShadow: "0 0 30px rgba(99,102,241,0.25)",
-                    animation: "floatPulse 3s ease-in-out infinite",
-                  }}>
-                  Join ASTRA ✦
-                </a>
-              </motion.div>
-            </div>
-          </div>
+        <FadeUp className="max-w-4xl mx-auto text-center space-y-8">
+          <SectionPill icon={<Globe className="w-3 h-3" />} label="Our Vision" />
+          <h2 className="text-5xl md:text-6xl font-black leading-tight" style={{ fontFamily: "Syne, sans-serif" }}>
+            <span style={{
+              background: "linear-gradient(135deg, #e0e7ff 20%, #818cf8 50%, #a78bfa 80%)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            }}>
+              Building the minds<br />that build AI.
+            </span>
+          </h2>
+
+          <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+            To nurture a community of intellectually curious and ethically grounded learners who explore{" "}
+            <span className="text-indigo-400 font-semibold">Artificial Intelligence</span>{" "}
+            with depth, responsibility, and purpose.
+          </p>
+
+          <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+            We aim to empower students to{" "}
+            <span className="text-white font-semibold">think critically</span>,{" "}
+            <span className="text-white font-semibold">learn collaboratively</span>, and apply
+            AI knowledge to create{" "}
+            <span className="text-indigo-400 font-semibold">meaningful real-world impact</span>{" "}
+            - locally, globally, and sustainably.
+          </p>
+
+          {/* CTA */}
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+            <a href="#contact"
+              onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-bold text-sm transition-all"
+              style={{
+                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                boxShadow: "0 0 40px rgba(99,102,241,0.3)",
+                animation: "floatPulse 2.5s ease-in-out infinite",
+              }}>
+              Join ASTRA ✦
+            </a>
+          </motion.div>
         </FadeUp>
       </div>
 

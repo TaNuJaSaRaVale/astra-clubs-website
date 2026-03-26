@@ -665,7 +665,7 @@ export default function Events() {
                   Have an event idea?
                 </h2>
                 <p className="text-gray-400 text-sm md:text-base max-w-sm mx-auto md:mx-0">
-                  We are constantly seeking new areas to explore along with our community. Pitch your workshop.
+                  We are constantly seeking new areas to explore along with our community.
                 </p>
               </div>
               <div className="flex-shrink-0 mt-2 md:mt-0 md:self-center">
