@@ -50,7 +50,21 @@ export default function CustomCursor() {
       ringPos.current.y += (y - ringPos.current.y) * lerpSpeed;
       ring.style.transform = `translate(${ringPos.current.x - 20}px, ${ringPos.current.y - 20}px) scale(${hover.current ? 1.6 : 1})`;
 
+      // Glow orb lerps slowly
+      const glowSpeed = 0.05;
+      ringPos.current.gx = ringPos.current.gx || -200;
+      ringPos.current.gy = ringPos.current.gy || -200;
+      ringPos.current.gx += (x - ringPos.current.gx) * glowSpeed;
+      ringPos.current.gy += (y - ringPos.current.gy) * glowSpeed;
+      
+      const glowOrb = document.getElementById("cursor-glow-orb");
+      if (glowOrb) {
+        glowOrb.style.transform = `translate(${ringPos.current.gx - 200}px, ${ringPos.current.gy - 200}px)`;
+        glowOrb.style.opacity = hover.current ? "0.6" : "0.3";
+      }
+
       rafId.current = requestAnimationFrame(animate);
+
     };
 
     rafId.current = requestAnimationFrame(animate);
@@ -65,6 +79,32 @@ export default function CustomCursor() {
 
   return (
     <>
+      <style>{`
+        body, a, button, [role='button'] {
+          cursor: none !important;
+        }
+      `}</style>
+      
+      {/* Light Source Orb */}
+      <div
+        id="cursor-glow-orb"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 400,
+          height: 400,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)",
+          filter: "blur(40px)",
+          pointerEvents: "none",
+          zIndex: 9997,
+          mixBlendMode: "screen",
+          transition: "opacity 0.5s ease",
+          willChange: "transform",
+        }}
+      />
+
       {/* Outer ring — lerps behind */}
       <div
         ref={ringRef}

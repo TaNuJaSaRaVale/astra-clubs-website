@@ -7,6 +7,7 @@ import Events from "./pages/Events";
 import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import CustomCursor from "./components/CustomCursor";
+import TerminalEasterEgg from "./components/TerminalEasterEgg";
 
 /* ─── Branded Loading Screen ─────────────────────────────── */
 function Loader() {
@@ -87,6 +88,7 @@ export default function App() {
   return (
     <>
       <CustomCursor />
+      <TerminalEasterEgg />
 
       <AnimatePresence mode="wait">
         {loading ? (

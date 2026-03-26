@@ -8,6 +8,7 @@ import {
   BookOpen,
   Briefcase,
 } from "lucide-react";
+import Hero3D from "../components/Hero3D";
 
 /* ═══════════════════════════════════════════════
    NEURAL CANVAS
@@ -470,6 +471,7 @@ export default function Home() {
       {/* ── HERO ────────────────────────────── */}
       <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
         <NeuralCanvas />
+        <Hero3D />
 
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none"
           style={{ background: "radial-gradient(ellipse, #6366f1 0%, transparent 70%)" }} />

@@ -663,77 +663,58 @@ export default function About() {
       </div>
 
       {/* ── VISION ────────────────────────────────────────────────── */}
-      <div className="py-16 px-6 relative z-10">
+      <div className="py-12 px-6 relative z-10 font-sans">
         <FadeUp>
-          <div className="max-w-6xl mx-auto glass-card rounded-[2.5rem] p-8 md:p-12 lg:p-16 border border-white/10 relative overflow-hidden flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
-            {/* Background Glow */}
-            <div className="absolute inset-0 pointer-events-none opacity-50"
-              style={{ background: "radial-gradient(circle at 100% 100%, rgba(99,102,241,0.15) 0%, transparent 60%)" }} />
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="max-w-5xl mx-auto glass-card rounded-[2rem] p-8 md:p-10 border border-indigo-500/30 relative overflow-hidden group shadow-[0_0_40px_rgba(99,102,241,0.15)]"
+          >
+            {/* Animated Laser Glow */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-indigo-400 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
             
-            {/* Left Column: Heading */}
-            <div className="flex-1 text-center lg:text-left space-y-6">
-              <SectionPill icon={<Globe className="w-3 h-3" />} label="Our Vision" />
-              <h2 className="text-4xl md:text-5xl font-black leading-tight" style={{ fontFamily: "Syne, sans-serif" }}>
-                <span style={{
-                  background: "linear-gradient(135deg, #e0e7ff 20%, #818cf8 50%, #a78bfa 80%)",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                }}>
-                  Building the minds<br />that build AI.
-                </span>
-              </h2>
-              {/* CTA */}
-              <div className="pt-4 hidden lg:block">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} className="inline-block">
-                  <a href="#contact"
-                    onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl text-white font-bold text-sm transition-all"
-                    style={{
-                      background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                      boxShadow: "0 0 30px rgba(99,102,241,0.3)",
-                    }}>
-                    Join ASTRA ✦
-                  </a>
-                </motion.div>
+            {/* Background Glow */}
+            <div className="absolute -inset-20 opacity-30 pointer-events-none transition-opacity duration-700 group-hover:opacity-70"
+              style={{ background: "radial-gradient(circle at 100% 0%, rgba(139,92,246,0.2) 0%, transparent 50%), radial-gradient(circle at 0% 100%, rgba(99,102,241,0.2) 0%, transparent 50%)" }} />
+            
+            <div className="flex flex-col md:flex-row items-center md:items-stretch gap-8 md:gap-12 relative z-10">
+              
+              {/* Left Column: Heading */}
+              <div className="flex-1 text-center md:text-left flex flex-col justify-center">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-400/30 bg-indigo-500/10 text-indigo-300 text-[10px] font-bold uppercase tracking-widest mb-6 w-fit mx-auto md:mx-0 shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+                  <Globe className="w-3 h-3" /> Our Vision
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight group-hover:scale-105 origin-center md:origin-left transition-transform duration-500" style={{ fontFamily: "Syne, sans-serif" }}>
+                  <span style={{
+                    background: "linear-gradient(135deg, #fff 20%, #a78bfa 100%)",
+                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                  }}>
+                    Building the minds<br />that build AI.
+                  </span>
+                </h2>
               </div>
-            </div>
 
-            {/* Right Column: Content */}
-            <div className="flex-1 space-y-6 relative z-10">
-              <div className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-                  To nurture a community of intellectually curious and ethically grounded learners who explore{" "}
-                  <span className="text-indigo-400 font-semibold">Artificial Intelligence</span>{" "}
-                  with depth, responsibility, and purpose.
-                </p>
-              </div>
-              <div className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                  We aim to empower students to{" "}
-                  <span className="text-white font-semibold">think critically</span>,{" "}
-                  <span className="text-white font-semibold">learn collaboratively</span>, and apply
-                  AI knowledge to create{" "}
-                  <span className="text-indigo-400 font-semibold">meaningful real-world impact</span>{" "}
-                  - locally, globally, and sustainably.
-                </p>
+              {/* Right Column: Content */}
+              <div className="flex-[1.2] relative flex flex-col justify-center">
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="relative p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-inner transition-all duration-500 group-hover:bg-white/10 group-hover:border-indigo-500/40">
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                    To nurture a community of intellectually curious and ethically grounded learners who explore{" "}
+                    <span className="text-indigo-300 font-semibold drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]">Artificial Intelligence</span>{" "}
+                    with depth, responsibility, and purpose.
+                  </p>
+                  <p className="text-gray-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-gray-300">
+                    We aim to empower students to{" "}
+                    <span className="text-white font-medium">think critically</span>,{" "}
+                    <span className="text-white font-medium">learn collaboratively</span>, and apply
+                    AI knowledge to create{" "}
+                    <span className="text-indigo-400 font-medium tracking-wide">meaningful real-world impact</span>{" "}
+                    - locally, globally, and sustainably.
+                  </p>
+                </div>
               </div>
               
-              {/* Mobile CTA */}
-              <div className="pt-6 lg:hidden flex justify-center">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} className="inline-block">
-                  <a href="#contact"
-                    onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl text-white font-bold text-sm transition-all"
-                    style={{
-                      background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                      boxShadow: "0 0 30px rgba(99,102,241,0.3)",
-                    }}>
-                    Join ASTRA ✦
-                  </a>
-                </motion.div>
-              </div>
             </div>
-            
-          </div>
+          </motion.div>
         </FadeUp>
       </div>
 
