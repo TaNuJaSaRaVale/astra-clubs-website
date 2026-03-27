@@ -229,8 +229,8 @@ pos: "object-[center_25%]",
       name: "Tanuja Sambhaji Saravale", 
       initials: "TS", 
       image: "https://drive.google.com/thumbnail?id=18T-3ZxWg1WyCcuKHbBS-LCzGBxZXgg_O&sz=w1000", 
-      zoom: "scale-[1.3]", // Chehra javal annyasathi
-      pos: "object-[center_10%]", // Chehra varti ghenyasathi
+      zoom: "scale-[1.3]", 
+      pos: "object-[center_10%]", 
       bg: "#f0f9ff", 
       fg: "#0369a1" 
     },
