@@ -8,6 +8,7 @@ import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import CustomCursor from "./components/CustomCursor";
 import TerminalEasterEgg from "./components/TerminalEasterEgg";
+import AstraChatbot from "./components/AstraChatbot";
 
 /* ─── Branded Loading Screen ─────────────────────────────── */
 function Loader() {
@@ -89,6 +90,7 @@ export default function App() {
     <>
       <CustomCursor />
       <TerminalEasterEgg />
+      <AstraChatbot />
 
       <AnimatePresence mode="wait">
         {loading ? (
