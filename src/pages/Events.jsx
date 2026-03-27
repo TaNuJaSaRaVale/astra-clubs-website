@@ -1,3 +1,8 @@
+import gim1 from '../assets/gim1.jpeg';
+import gim2 from '../assets/gim2.jpeg';
+import gim3 from '../assets/gim3.jpeg';
+import cs1 from '../assets/cs1.jpeg';
+import cs2 from '../assets/cs2.jpeg';
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Calendar, CheckCircle2, Rocket, Timer, Zap, User, Clock, MapPin, X, Search, Tag, Image as ImageIcon, ExternalLink } from "lucide-react";
@@ -113,10 +118,10 @@ const events = [
     location: "Tilak Hall, WCE",
     speakers: ["Dr. Vivek Waghmare", "ASTRA Core Team"],
     tags: ["#Inaugural", "#Vision", "#Networking"],
-    gallery: [
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1558008258-3256797b43f3?w=600&h=400&fit=crop"
+   gallery: [
+      gim1,
+      gim2,
+      gim3
     ]
   },
   {
@@ -136,8 +141,8 @@ const events = [
     speakers: ["Main Board Members", "Associate Board Members"],
     tags: ["#MachineLearning", "#Email-Spam Classifier", "#Foundations"],
     gallery: [
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop"
+     cs1,
+     cs2
     ]
   },
 ];
