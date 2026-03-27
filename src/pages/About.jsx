@@ -588,60 +588,62 @@ export default function About() {
 
       {/* ── HOD QUOTE CARD ─────────────────────────────────────────── */}
       <div className="py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-8"
-          style={{ background: "radial-gradient(ellipse at 50% 50%, #6366f1 0%, transparent 65%)" }} />
+  <div className="absolute inset-0 pointer-events-none opacity-8"
+    style={{ background: "radial-gradient(ellipse at 50% 50%, #6366f1 0%, transparent 65%)" }} />
 
-        <div className="max-w-5xl mx-auto">
-          <ScaleIn>
-            <div className="glass-card rounded-[3rem] p-10 md:p-16 relative overflow-hidden">
-              {/* Background shimmer */}
-              <div className="absolute inset-0 rounded-[3rem] pointer-events-none"
-                style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(139,92,246,0.04) 50%, rgba(6,182,212,0.06) 100%)" }} />
+  <div className="max-w-5xl mx-auto">
+    <ScaleIn>
+      <div className="glass-card rounded-[3rem] p-10 md:p-16 relative overflow-hidden">
+        {/* Background shimmer */}
+        <div className="absolute inset-0 rounded-[3rem] pointer-events-none"
+          style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(139,92,246,0.04) 50%, rgba(6,182,212,0.06) 100%)" }} />
 
-              <div className="relative z-10 flex flex-col md:flex-row gap-10 items-center">
-                {/* Photo */}
-                <div className="flex-shrink-0 text-center">
-                  <div className="relative inline-block">
-                    <div className="absolute -inset-2 rounded-3xl blur-md opacity-60"
-                      style={{ background: "linear-gradient(135deg, #6366f1, #a78bfa)" }} />
-                    <img src={hodPhoto} alt="Dr. Vivek Nivrutirao Waghmare"
-                      className="relative h-50 w-60 rounded-3xl object-cover border-2 border-white/10"
-                      style={{ boxShadow: "0 20px 60px rgba(99,102,241,0.25)" }} />
-                  </div>
-                  <div className="mt-4">
-                    <h3 className="text-white font-bold text-lg" style={{ fontFamily: "Syne, sans-serif" }}>
-                      Dr. Vivek Nivrutirao Waghmare
-                    </h3>
-                    <p className="text-indigo-400 text-xs font-bold uppercase tracking-widest mt-1">
-                      Professor & Head, AIML Dept
-                    </p>
-                    <p className="text-gray-600 text-xs mt-0.5">WCE, Sangli</p>
-                  </div>
-                </div>
-
-                {/* Quote */}
-                <div className="flex-1 space-y-6">
-                  <Quote className="w-10 h-10 text-indigo-500/40" />
-                  <blockquote className="text-xl md:text-2xl text-gray-200 font-light leading-relaxed italic">
-                    "ASTRA represents the spirit of intellectual curiosity that defines the AIML department at WCE.
-                    It is a platform where students don't just learn AI - they{" "}
-                    <span className="text-indigo-300 font-semibold not-italic">think, build, and grow</span>{" "}
-                    as future-ready technologists and thinkers."
-                  </blockquote>
-                  <div className="flex items-center gap-3">
-                    <div className="h-px flex-1 bg-gradient-to-r from-indigo-500/40 to-transparent" />
-                    <span className="text-gray-600 text-xs tracking-widest uppercase"></span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-500 text-xs">
-                    <Award className="w-3.5 h-3.5 text-amber-500" />
-                    <span>15+ years of teaching & research experience</span>
-                  </div>
-                </div>
-              </div>
+        <div className="relative z-10 flex flex-col md:flex-row gap-10 items-center">
+          {/* Photo Section */}
+          <div className="flex-shrink-0 text-center">
+            <div className="relative inline-block">
+              {/* Glowing backdrop div removed from here */}
+              <img 
+                src={hodPhoto} 
+                alt="Dr. Vivek Nivrutirao Waghmare"
+                className="relative h-50 w-60 rounded-3xl object-cover border-2 border-white/10"
+                style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }} // Switched to a subtle shadow instead of a colored glow
+              />
             </div>
-          </ScaleIn>
+            <div className="mt-4">
+              <h3 className="text-white font-bold text-lg" style={{ fontFamily: "Syne, sans-serif" }}>
+                Dr. Vivek Nivrutirao Waghmare
+              </h3>
+              <p className="text-indigo-400 text-xs font-bold uppercase tracking-widest mt-1">
+                Professor & Head, AIML Dept
+              </p>
+              <p className="text-gray-600 text-xs mt-0.5">WCE, Sangli</p>
+            </div>
+          </div>
+
+          {/* Quote Section */}
+          <div className="flex-1 space-y-6">
+            <Quote className="w-10 h-10 text-indigo-500/40" />
+            <blockquote className="text-xl md:text-2xl text-gray-200 font-light leading-relaxed italic">
+              "ASTRA represents the spirit of intellectual curiosity that defines the AIML department at WCE.
+              It is a platform where students don't just learn AI - they{" "}
+              <span className="text-indigo-300 font-semibold not-italic">think, build, and grow</span>{" "}
+              as future-ready technologists and thinkers."
+            </blockquote>
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-gradient-to-r from-indigo-500/40 to-transparent" />
+              <span className="text-gray-600 text-xs tracking-widest uppercase"></span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-500 text-xs">
+              <Award className="w-3.5 h-3.5 text-amber-500" />
+              <span>15+ years of teaching & research experience</span>
+            </div>
+          </div>
         </div>
       </div>
+    </ScaleIn>
+  </div>
+</div>
 
       {/* ── OBJECTIVES GRID ───────────────────────────────────────── */}
       <div className="py-24 px-6">
