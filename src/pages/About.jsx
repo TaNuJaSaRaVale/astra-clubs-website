@@ -8,6 +8,49 @@ import {
 import hodPhoto from "../assets/hod-vivek-waghmare.jpg";
 
 /* ─────────────────────────────────────────────────────────
+   SPOTLIGHT TEXT REVEAL COMPONENT
+───────────────────────────────────────────────────────── */
+function SpotlightTextReveal({ children }) {
+  const containerRef = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative w-full h-full cursor-none"
+    >
+      {/* Base Layer (Incredibly Dim) */}
+      <div className="text-white/10 font-bold tracking-wide">
+        {children}
+      </div>
+
+      {/* Spotlight Mask Layer (Bright White & Glowing) */}
+      <motion.div
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+        className="absolute inset-0 pointer-events-none text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] font-bold tracking-wide"
+        style={{
+          WebkitMaskImage: `radial-gradient(120px circle at ${position.x}px ${position.y}px, black 20%, transparent 100%)`,
+          maskImage: `radial-gradient(120px circle at ${position.x}px ${position.y}px, black 20%, transparent 100%)`,
+        }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
    NEURAL CANVAS  (reused from Home)
 ───────────────────────────────────────────────────────── */
 function NeuralCanvas() {
@@ -697,19 +740,16 @@ export default function About() {
               <div className="flex-[1.2] relative flex flex-col justify-center">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-inner transition-all duration-500 group-hover:bg-white/10 group-hover:border-indigo-500/40">
-                  <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
-                    To nurture a community of intellectually curious and ethically grounded learners who explore{" "}
-                    <span className="text-indigo-300 font-semibold drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]">Artificial Intelligence</span>{" "}
-                    with depth, responsibility, and purpose.
-                  </p>
-                  <p className="text-gray-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-gray-300">
-                    We aim to empower students to{" "}
-                    <span className="text-white font-medium">think critically</span>,{" "}
-                    <span className="text-white font-medium">learn collaboratively</span>, and apply
-                    AI knowledge to create{" "}
-                    <span className="text-indigo-400 font-medium tracking-wide">meaningful real-world impact</span>{" "}
-                    - locally, globally, and sustainably.
-                  </p>
+                  <SpotlightTextReveal>
+                    <p className="text-sm md:text-base leading-relaxed mb-4">
+                      To nurture a community of intellectually curious and ethically grounded learners who explore{" "}
+                      Artificial Intelligence{" "}
+                      with depth, responsibility, and purpose.
+                    </p>
+                    <p className="text-sm leading-relaxed">
+                      We aim to empower students to think critically, learn collaboratively, and apply AI knowledge to create meaningful real-world impact - locally, globally, and sustainably.
+                    </p>
+                  </SpotlightTextReveal>
                 </div>
               </div>
               

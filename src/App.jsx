@@ -10,68 +10,74 @@ import CustomCursor from "./components/CustomCursor";
 import TerminalEasterEgg from "./components/TerminalEasterEgg";
 import AstraChatbot from "./components/AstraChatbot";
 
-/* ─── Branded Loading Screen ─────────────────────────────── */
+/* ─── Matrix Decryption Preloader ─────────────────────────────── */
+const TARGET_WORD = "ASTRA";
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$*&%";
+
 function Loader() {
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setText(TARGET_WORD.split("").map((letter, index) => {
+        if(index < iterations) {
+          return TARGET_WORD[index];
+        }
+        return CHARS[Math.floor(Math.random() * CHARS.length)]
+      }).join(""))
+      
+      if(iterations >= TARGET_WORD.length){
+        clearInterval(interval);
+      }
+      iterations += 1 / 4; // Slows down decryption phase
+    }, 45);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.div
       className="fixed inset-0 flex flex-col items-center justify-center z-[9999] overflow-hidden"
       style={{ background: "#080c18" }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.7, ease: "easeInOut" }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Background glow */}
+      {/* Subtle Background glow */}
       <div
-        className="absolute w-[500px] h-[500px] rounded-full"
+        className="absolute w-[600px] h-[600px] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)",
-          filter: "blur(40px)",
+          background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 60%)",
+          filter: "blur(50px)",
         }}
       />
 
-      {/* Logo + bar */}
       <motion.div
-        initial={{ scale: 0.82, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         className="relative flex flex-col items-center gap-6"
       >
-        {/* Title */}
         <h1
-          className="text-6xl font-black tracking-tighter select-none"
-          style={{ fontFamily: "Syne, sans-serif" }}
+          className="text-6xl sm:text-7xl md:text-8xl font-black tracking-[0.15em] font-mono select-none transition-all duration-300"
+          style={{ 
+            color: text === TARGET_WORD ? "#ffffff" : "rgba(165, 180, 252, 0.7)",
+            textShadow: text === TARGET_WORD ? "0 0 40px rgba(99,102,241,0.6)" : "none",
+          }}
         >
-          <span
-            style={{
-              background:
-                "linear-gradient(135deg, #ffffff 0%, #a5b4fc 40%, #818cf8 70%, #6366f1 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            ASTRA
-          </span>
+          {text}
         </h1>
 
-        {/* Progress bar */}
-        <div
-          className="w-48 rounded-full overflow-hidden"
-          style={{ height: "2px", background: "rgba(255,255,255,0.08)" }}
-        >
-          <div
-            className="h-full loader-bar rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #6366f1, #a78bfa, #60a5fa)",
-            }}
-          />
+        {/* Status Line */}
+        <div className="h-4 flex items-center justify-center overflow-hidden">
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: text === TARGET_WORD ? 0 : 20, opacity: text === TARGET_WORD ? 1 : 0 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-indigo-400 font-semibold"
+          >
+            System Initialized
+          </motion.p>
         </div>
-
-        <p
-          className="text-xs tracking-[0.35em] uppercase select-none"
-          style={{ color: "rgba(255,255,255,0.3)" }}
-        >
-          AI & ML Club · WCE
-        </p>
       </motion.div>
     </motion.div>
   );

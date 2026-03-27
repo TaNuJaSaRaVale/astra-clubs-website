@@ -1,7 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import logo from "../assets/astra-logo.png";
 import wceLogo from "../assets/wce-logo.png";
 import { Menu, X } from "lucide-react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+
+function MagneticButton({ children, onClick, active, id }) {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 15, stiffness: 200, mass: 0.1 };
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    x.set(middleX * 0.4); // Magnetic pull ratio
+    y.set(middleY * 0.4);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      style={{ x: smoothX, y: smoothY }}
+      className="relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 group cursor-none"
+      animate={{
+        color: active === id ? "#a5b4fc" : "rgba(209,213,219,0.8)",
+        backgroundColor: active === id ? "rgba(99,102,241,0.1)" : "transparent",
+      }}
+      whileHover={{
+        color: "#fff",
+        backgroundColor: active === id ? "rgba(99,102,241,0.1)" : "rgba(255,255,255,0.05)"
+      }}
+    >
+      {children}
+      {active === id && (
+        <motion.span
+          layoutId="activeNavIndicator"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-px rounded-full"
+          style={{
+            width: "60%",
+            background: "linear-gradient(90deg, transparent, #818cf8, transparent)",
+            boxShadow: "0 0 8px rgba(129,140,248,0.8)",
+          }}
+        />
+      )}
+    </motion.button>
+  );
+}
 
 const navItems = [
   { id: "home",    label: "Home" },
@@ -41,13 +98,13 @@ export default function Navbar() {
       className="sticky top-0 z-50 transition-all duration-700"
       style={{
        background: scrolled
-  ? "rgba(8, 12, 24, 0.95)"
-  : "rgba(8, 12, 24, 0.75)",
+  ? "rgba(8, 12, 24, 0.85)"
+  : "transparent",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         borderBottom: scrolled
           ? "1px solid rgba(99, 102, 241, 0.15)"
-          : "1px solid rgba(255, 255, 255, 0.04)",
+          : "1px solid transparent",
         boxShadow: scrolled
           ? "0 4px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(99,102,241,0.04)"
           : "none",
@@ -89,40 +146,15 @@ export default function Navbar() {
         {/* DESKTOP NAV */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map(({ id, label }) => (
-            <button
+            <MagneticButton
               key={id}
+              id={id}
+              active={active}
               onClick={() => scrollToSection(id)}
-              className="relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 group"
-              style={{
-                color: active === id ? "#a5b4fc" : "rgba(209,213,219,0.8)",
-                background: active === id ? "rgba(99,102,241,0.1)" : "transparent",
-              }}
-              onMouseEnter={e => {
-                if (active !== id) e.currentTarget.style.color = "#fff";
-                if (active !== id) e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-              }}
-              onMouseLeave={e => {
-                if (active !== id) e.currentTarget.style.color = "rgba(209,213,219,0.8)";
-                if (active !== id) e.currentTarget.style.background = "transparent";
-              }}
             >
               {label}
-
-              {/* Active glow underline */}
-              {active === id && (
-                <span
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-px rounded-full"
-                  style={{
-                    width: "60%",
-                    background: "linear-gradient(90deg, transparent, #818cf8, transparent)",
-                    boxShadow: "0 0 8px rgba(129,140,248,0.8)",
-                  }}
-                />
-              )}
-            </button>
+            </MagneticButton>
           ))}
-
-          
         </div>
 
         {/* MOBILE TOGGLE */}
